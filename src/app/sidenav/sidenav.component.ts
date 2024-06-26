@@ -12,7 +12,7 @@ import {ExpansionItem} from "../menu-list/expansion.list.models";
 
 /** @title Responsive sidenav */
 @Component({
-  selector: 'sidenav',
+  selector: 'SideNavComponent',
   templateUrl: 'sidenav.component.html',
   styleUrls: ['sidenav.component.scss'],
   imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, CommonModule, MatExpansionModule, ExpansionListComponent],
@@ -61,8 +61,7 @@ export class SidenavComponent {
       }]
     }];
 
-  title : string = "Warcraft Manager Tool";
-  leftPanelState: boolean = false;
+  panelState: boolean = true;
   mobileQuery: MediaQueryList;
 
   fillerContent = Array(2).fill(0).map(() =>
@@ -78,6 +77,10 @@ export class SidenavComponent {
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
+  }
+
+  toggle() {
+    this.panelState = !this.panelState;
   }
 }
 
