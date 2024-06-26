@@ -1,1 +1,14 @@
-<sidenav></sidenav>
+<div class="app-container" [class.main-sidenav-is-mobile]="mobileQuery.matches">
+  <mat-toolbar color="primary" class="main-sidenav-toolbar elevation-z6">
+    <button mat-icon-button (click)="snav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <h1 class="main-sidenav-app-name"> {{ title }}</h1>
+    <button class="uk-align-right" mat-icon-button (click)="snav.toggle()">
+      <mat-icon class=" no-padding no-margin">group</mat-icon>
+    </button>
+  </mat-toolbar>
+  <div class="ct-fill-height">
+  <SideNavComponent #snav ></SideNavComponent>
+  </div>
+</div>
