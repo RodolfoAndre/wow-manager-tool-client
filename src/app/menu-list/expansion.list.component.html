@@ -1,0 +1,17 @@
+<mat-expansion-panel (opened)="panelState = true"
+                     (closed)="panelState = false"
+                     [expanded]="true"
+                     *ngFor="let item of expansionItems">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{ item.name }}
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <mat-nav-list>
+    <mat-list-item *ngFor="let childItem of item.children">
+      <a>
+        <mat-icon class="material-icons md-18">{{ childItem.icon }}</mat-icon>
+        <span>{{ childItem.name }}</span></a>
+    </mat-list-item>
+  </mat-nav-list>
+</mat-expansion-panel>
