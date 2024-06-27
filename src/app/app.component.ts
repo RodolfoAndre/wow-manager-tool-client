@@ -51,8 +51,8 @@ export class AppComponent implements OnDestroy {
       }]
     },
     {
-      name: "Gear",
-      path: "gear",
+      name: "Equipment",
+      path: "equipment",
       children: [{
         name: "List",
         icon: "list",

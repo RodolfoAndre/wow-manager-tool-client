@@ -7,12 +7,13 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {CommonModule} from '@angular/common';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {ExpansionItem} from "./expansion.list.models";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'expansion-list',
   templateUrl: 'expansion.list.component.html',
   styleUrls: ['expansion.list.component.scss'],
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, CommonModule, MatExpansionModule],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, CommonModule, MatExpansionModule, RouterLink],
   standalone: true
 })
 export class ExpansionListComponent {

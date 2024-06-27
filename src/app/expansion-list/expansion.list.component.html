@@ -8,7 +8,7 @@
     </mat-panel-title>
   </mat-expansion-panel-header>
   <mat-nav-list>
-    <mat-list-item *ngFor="let childItem of item.children">
+    <mat-list-item *ngFor="let childItem of item.children" [routerLink]="[item.path, childItem.path]">
       <a>
         <mat-icon class="material-icons md-18">{{ childItem.icon }}</mat-icon>
         <span>{{ childItem.name }}</span></a>

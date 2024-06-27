@@ -4,7 +4,7 @@ import { MountComponent } from './mount/mount.component';
 import { ReputationComponent } from './reputation/reputation.component';
 
 export const routes: Routes = [
-  { path: 'equipment', component: EquipmentComponent },
-  { path: 'mount', component: MountComponent },
-  { path: 'reputation', component: ReputationComponent }
+  { path: 'equipment/list', component: EquipmentComponent },
+  { path: 'mount/list', component: MountComponent },
+  { path: 'reputation/list', component: ReputationComponent }
 ];
