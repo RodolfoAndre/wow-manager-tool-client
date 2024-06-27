@@ -1,9 +1,17 @@
 <mat-sidenav-container class="ct-fill-height" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-  <mat-sidenav [mode]="mobileQuery.matches ? 'over' : 'side'"
-               [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" [opened]="panelState">
-    <expansion-list [expansion-items]="fillerNav"></expansion-list>
-  </mat-sidenav>
+  @if (leftNavItems.length > 0) {
+    <mat-sidenav [mode]="mobileQuery.matches ? 'over' : 'side'"
+                 [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" [opened]="leftPanelOpened">
+      <expansion-list [expansion-items]="leftNavItems"></expansion-list>
+    </mat-sidenav>
+  }
   <mat-sidenav-content>
-    <p *ngFor="let content of fillerContent">{{ content }}</p>
+    <ng-content></ng-content>
   </mat-sidenav-content>
+  @if (rightNavItems.length > 0) {
+    <mat-sidenav [mode]="mobileQuery.matches ? 'over' : 'side'" position="end"
+                 [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" [opened]="rightPanelOpened">
+      <expansion-list [expansion-items]="rightNavItems"></expansion-list>
+    </mat-sidenav>
+  }
 </mat-sidenav-container>

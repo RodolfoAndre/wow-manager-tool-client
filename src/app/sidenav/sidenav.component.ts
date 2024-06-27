@@ -1,5 +1,14 @@
 import {MediaMatcher} from '@angular/cdk/layout';
-import {ChangeDetectorRef, Component, OnDestroy} from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  ContentChild,
+  ElementRef,
+  Input,
+  OnDestroy,
+  TemplateRef,
+  ViewChild
+} from '@angular/core';
 import {MatListModule} from '@angular/material/list';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
@@ -7,8 +16,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { CommonModule } from '@angular/common';
 import {MatExpansionModule} from '@angular/material/expansion';
-import {ExpansionListComponent} from "../menu-list/./expansion.list.component";
-import {ExpansionItem} from "../menu-list/expansion.list.models";
+import {ExpansionListComponent} from "../expansion-list/expansion.list.component";
+import {ExpansionItem} from "../expansion-list/expansion.list.models";
 
 /** @title Responsive sidenav */
 @Component({
@@ -18,54 +27,13 @@ import {ExpansionItem} from "../menu-list/expansion.list.models";
   imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, CommonModule, MatExpansionModule, ExpansionListComponent],
   standalone: true
 })
-export class SidenavComponent {
-  fillerNav : Array<ExpansionItem> = [
-    {
-      name: "Mounts",
-      path: "mount",
-      children: [{
-        name: "Drop",
-        icon: "pets",
-        path: "drop"
-      }, {
-        name: "List",
-        icon: "list",
-        path: "list"
-      }]
-    },
-    {
-      name: "Reputation",
-      path: "reputation",
-      children: [{
-        name: "List",
-        icon: "list",
-        path: "list"
-      }]
-    },
-    {
-      name: "Gear",
-      path: "gear",
-      children: [{
-        name: "List",
-        icon: "list",
-        path: "list"
-      }]
-    },
-    {
-      name: "Achievement",
-      path: "achievement",
-      children: [{
-        name: "List",
-        icon: "list",
-        path: "list"
-      }]
-    }];
+export class SidenavComponent implements OnDestroy{
+  @Input('left-side-nav-items') leftNavItems!: Array<ExpansionItem>;
+  @Input('right-side-nav-items') rightNavItems!: Array<ExpansionItem>;
 
-  panelState: boolean = true;
+  leftPanelOpened: boolean = (this.leftNavItems == undefined || this.leftNavItems.length == 0);
+  rightPanelOpened: boolean = (this.rightNavItems == undefined || this.rightNavItems.length == 0);
   mobileQuery: MediaQueryList;
-
-  fillerContent = Array(2).fill(0).map(() =>
-    `Open side nav, and click on any navigation to close the opened side nav.`);
 
   private _mobileQueryListener: () => void;
 
@@ -79,8 +47,12 @@ export class SidenavComponent {
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }
 
-  toggle() {
-    this.panelState = !this.panelState;
+  toggleLeft() {
+    this.leftPanelOpened = !this.leftPanelOpened;
+  }
+
+  toggleRight() {
+    this.rightPanelOpened = !this.rightPanelOpened;
   }
 }
 

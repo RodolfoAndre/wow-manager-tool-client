@@ -6,9 +6,12 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatListModule} from '@angular/material/list';
 import {MatButtonModule} from '@angular/material/button';
 import {SidenavComponent} from './sidenav/sidenav.component';
+import {ExpansionItem} from "./expansion-list/expansion.list.models";
+import {CommonModule, NgForOf} from "@angular/common";
+import {RouterLink, RouterLinkActive, ActivatedRoute, RouterOutlet} from "@angular/router";
 
 @Component({
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, SidenavComponent],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, SidenavComponent, CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
   selector: 'app-root',
   standalone: true,
   styleUrl: './app.component.scss',
@@ -16,12 +19,60 @@ import {SidenavComponent} from './sidenav/sidenav.component';
 })
 export class AppComponent implements OnDestroy {
   title = 'Warcraft Manager Tool';
+  rightSideNavItems : Array<ExpansionItem> = [];
+
+
+
+
+  fillerContent = Array(2).fill(0).map(() =>
+    `Open side nav, and click on any navigation to close the opened side nav.`);
+  leftSideNavItems : Array<ExpansionItem> = [
+    {
+      name: "Mounts",
+      path: "mount",
+      children: [{
+        name: "Drop",
+        icon: "pets",
+        path: "drop"
+      }, {
+        name: "List",
+        icon: "list",
+        path: "list"
+      }]
+    },
+    {
+      name: "Reputation",
+      path: "reputation",
+      children: [{
+        name: "List",
+        icon: "list",
+        path: "list"
+      }]
+    },
+    {
+      name: "Gear",
+      path: "gear",
+      children: [{
+        name: "List",
+        icon: "list",
+        path: "list"
+      }]
+    },
+    {
+      name: "Achievement",
+      path: "achievement",
+      children: [{
+        name: "List",
+        icon: "list",
+        path: "list"
+      }]
+    }];
 
   mobileQuery: MediaQueryList;
 
   private _mobileQueryListener: () => void;
 
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private route: ActivatedRoute) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);

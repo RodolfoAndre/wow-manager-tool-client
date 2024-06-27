@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-reputation',
@@ -8,5 +9,7 @@ import { Component } from '@angular/core';
   styleUrl: './reputation.component.scss'
 })
 export class ReputationComponent {
+  constructor(private route: ActivatedRoute) {
 
+  }
 }
