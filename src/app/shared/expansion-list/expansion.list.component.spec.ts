@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ExpansionListComponent } from '././expansion.list.component';
+import { ExpansionListComponent } from './expansion.list.component';
 
 describe('MenuListComponent', () => {
   let component: ExpansionListComponent;

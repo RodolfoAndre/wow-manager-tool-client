@@ -5,8 +5,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatListModule} from '@angular/material/list';
 import {MatButtonModule} from '@angular/material/button';
-import {SidenavComponent} from './sidenav/sidenav.component';
-import {ExpansionItem} from "./expansion-list/expansion.list.models";
+import {SidenavComponent} from './shared/sidenav/sidenav.component';
+import {ExpansionItem} from "./shared/expansion-list/expansion.list.models";
 import {CommonModule, NgForOf} from "@angular/common";
 import {RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
 
