@@ -8,10 +8,11 @@ import {MatButtonModule} from '@angular/material/button';
 import {SidenavComponent} from './sidenav/sidenav.component';
 import {ExpansionItem} from "./expansion-list/expansion.list.models";
 import {CommonModule, NgForOf} from "@angular/common";
-import {RouterLink, RouterLinkActive, ActivatedRoute, RouterOutlet} from "@angular/router";
+import {RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
 
 @Component({
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, SidenavComponent, CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, SidenavComponent,
+    CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
   selector: 'app-root',
   standalone: true,
   styleUrl: './app.component.scss',
@@ -72,7 +73,7 @@ export class AppComponent implements OnDestroy {
 
   private _mobileQueryListener: () => void;
 
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private route: ActivatedRoute) {
+  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);

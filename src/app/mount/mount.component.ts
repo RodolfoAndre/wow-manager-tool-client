@@ -1,15 +1,12 @@
-import { Component } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {Component} from '@angular/core';
+import {CommonModule} from "@angular/common";
 
 @Component({
   selector: 'app-mount',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './mount.component.html',
   styleUrl: './mount.component.scss'
 })
 export class MountComponent {
-  constructor(private route: ActivatedRoute) {
-
-  }
 }

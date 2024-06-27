@@ -1,27 +1,18 @@
 import {MediaMatcher} from '@angular/cdk/layout';
-import {
-  ChangeDetectorRef,
-  Component,
-  ContentChild,
-  ElementRef,
-  Input,
-  OnDestroy,
-  TemplateRef,
-  ViewChild
-} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnDestroy} from '@angular/core';
 import {MatListModule} from '@angular/material/list';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
-import { CommonModule } from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {ExpansionListComponent} from "../expansion-list/expansion.list.component";
 import {ExpansionItem} from "../expansion-list/expansion.list.models";
 
 /** @title Responsive sidenav */
 @Component({
-  selector: 'SideNavComponent',
+  selector: 'side-nav-component',
   templateUrl: 'sidenav.component.html',
   styleUrls: ['sidenav.component.scss'],
   imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, CommonModule, MatExpansionModule, ExpansionListComponent],

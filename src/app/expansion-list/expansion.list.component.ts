@@ -1,11 +1,10 @@
-import {MediaMatcher} from '@angular/cdk/layout';
-import {ChangeDetectorRef, Component, Input, OnDestroy} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {MatListModule} from '@angular/material/list';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
-import { CommonModule } from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {ExpansionItem} from "./expansion.list.models";
 
@@ -19,6 +18,7 @@ import {ExpansionItem} from "./expansion.list.models";
 export class ExpansionListComponent {
   panelState: boolean = false;
   @Input('expansion-items') expansionItems!: Array<ExpansionItem>;
+
 }
 
 
