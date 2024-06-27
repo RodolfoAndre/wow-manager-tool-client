@@ -1,14 +1,26 @@
 <div class="app-container" [class.main-sidenav-is-mobile]="mobileQuery.matches">
   <mat-toolbar color="primary" class="main-sidenav-toolbar elevation-z6">
-    <button mat-icon-button (click)="snav.toggle()">
+    <button mat-icon-button (click)="lnav.toggleLeft()">
       <mat-icon>menu</mat-icon>
     </button>
     <h1 class="main-sidenav-app-name"> {{ title }}</h1>
-    <button class="uk-align-right" mat-icon-button (click)="snav.toggle()">
-      <mat-icon class=" no-padding no-margin">group</mat-icon>
-    </button>
+    @if (rightSideNavItems.length > 0) {
+      <button class="uk-align-right" mat-icon-button (click)="lnav.toggleRight()">
+        <mat-icon class=" no-padding no-margin">group</mat-icon>
+      </button>
+    }
   </mat-toolbar>
   <div class="ct-fill-height">
-  <SideNavComponent #snav ></SideNavComponent>
+    <SideNavComponent #lnav [left-side-nav-items]="leftSideNavItems" [right-side-nav-items]="rightSideNavItems">
+      <h1>Angular Router App</h1>
+      <nav>
+        <ul>
+          <li><a routerLink="/equipment" routerLinkActive="active" ariaCurrentWhenActive="page">Equipment</a></li>
+          <li><a routerLink="/mount" routerLinkActive="active" ariaCurrentWhenActive="page">Mount</a></li>
+          <li><a routerLink="/reputation" routerLinkActive="active" ariaCurrentWhenActive="page">Reputation</a></li>
+        </ul>
+      </nav>
+      <router-outlet></router-outlet>
+    </SideNavComponent>
   </div>
 </div>
