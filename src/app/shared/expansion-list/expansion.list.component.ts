@@ -7,7 +7,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {CommonModule} from '@angular/common';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {ExpansionItem} from "./expansion.list.models";
-import {RouterLink} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
+import {SharedService} from "../shared.service";
 
 @Component({
   selector: 'expansion-list',
@@ -20,6 +21,16 @@ export class ExpansionListComponent {
   panelState: boolean = false;
   @Input('expansion-items') expansionItems!: Array<ExpansionItem>;
 
+  constructor(private route: Router, private sharedService: SharedService) {
+  }
+
+  findParentPath(path: string | undefined) {
+    if (path === undefined || path === null) {
+      console.log(this.route.url);
+      return this.route.url;
+    }
+    return path;
+  }
 }
 
 

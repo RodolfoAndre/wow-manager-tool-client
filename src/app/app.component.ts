@@ -12,6 +12,7 @@ import {ApiService} from './shared/api/api.services';
 import {Character} from "./shared/character/character.models";
 import {AppComponentConfig} from "./app.models";
 import {ExpansionItem} from "./shared/expansion-list/expansion.list.models";
+import {SharedService} from "./shared/shared.service";
 
 @Component({
   imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, SidenavComponent,
@@ -32,7 +33,7 @@ export class AppComponent implements OnDestroy {
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
 
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private apiService: ApiService) {
+  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private apiService: ApiService, private sharedService: SharedService) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -113,14 +114,15 @@ export class AppComponent implements OnDestroy {
       let charListItem = {
         name: character.name,
         icon: "person",
-        path: "",
+        path: character.id.toString(),
+        onClick: () => {this.sharedService.setSelectedCharacter(character)}
       };
       if (serverExpansionItem) {
         serverExpansionItem.children?.push(charListItem);
       } else {
         sideNavBar.push({
           name: character.server,
-          path: character.id.toString(),
+          path: undefined,
           children: [charListItem]
         });
       }
