@@ -24,12 +24,11 @@ export class ExpansionListComponent {
   constructor(private route: Router, private sharedService: SharedService) {
   }
 
-  findParentPath(path: string | undefined) {
-    if (path === undefined || path === null) {
-      console.log(this.route.url);
-      return this.route.url;
+  findPath(parentPath: string | undefined, childPath: string | undefined): (string | undefined)[] {
+    if (parentPath === undefined || parentPath === null) {
+      return [this.sharedService.getNavigationPath(), childPath];
     }
-    return path;
+    return [parentPath, childPath];
   }
 }
 

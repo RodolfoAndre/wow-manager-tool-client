@@ -65,11 +65,13 @@ export class AppComponent implements OnDestroy {
         children: [{
           name: "Drop",
           icon: "pets",
-          path: "drop"
+          path: "drop",
+          onClick: () => this.sharedService.setNavigationPath(['mount', 'drop'])
         }, {
           name: "List",
           icon: "list",
-          path: "list"
+          path: "list",
+          onClick: () => this.sharedService.setNavigationPath(['mount', 'list'])
         }]
       },
       {
@@ -78,7 +80,8 @@ export class AppComponent implements OnDestroy {
         children: [{
           name: "List",
           icon: "list",
-          path: "list"
+          path: "list",
+          onClick: () => this.sharedService.setNavigationPath(['reputation', 'list'])
         }]
       },
       {
@@ -87,16 +90,8 @@ export class AppComponent implements OnDestroy {
         children: [{
           name: "List",
           icon: "list",
-          path: "list"
-        }]
-      },
-      {
-        name: "Achievement",
-        path: "achievement",
-        children: [{
-          name: "List",
-          icon: "list",
-          path: "list"
+          path: "list",
+          onClick: () => this.sharedService.setNavigationPath(['equipment', 'list'])
         }]
       }];
   }

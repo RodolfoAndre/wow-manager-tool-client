@@ -10,8 +10,8 @@ export class SharedService {
 
   private currentPath: string | undefined;
 
-  public setNavigationPath(path: string): void {
-    this.currentPath = path;
+  public setNavigationPath(path: (string | undefined)[]): void {
+    this.currentPath = path.join("/");
     if (this.selectedChar) {
       // router.navigate([path, this.selectedChar.id])
     }
