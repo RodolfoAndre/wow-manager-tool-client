@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Character} from "../character/character.models";
+import {EquipmentsModel} from "../../equipment/equipment.model";
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class ApiService {
   }
 
   getCharacterById(id : number) {
-    return this.httpClient.get(`${this.API_URL}/char/${id}`);
+    return this.httpClient.get<Character>(`${this.API_URL}/char/${id}`);
   }
 
   createChar(char: Character) {
@@ -42,8 +43,8 @@ export class ApiService {
     return this.httpClient.get(`${this.API_URL}/reputation/list/${id}`);
   }
 
-  getGearList(id: number, retrieveBis: boolean) {
-    return this.httpClient.get(`${this.API_URL}/gear/${id}?retrieveBis=${retrieveBis}`);
+  getEquipmentList(id: number, retrieveBis: boolean) {
+    return this.httpClient.get<EquipmentsModel>(`${this.API_URL}/gear/${id}?retrieveBis=${retrieveBis}`);
   }
 
   getServers() {

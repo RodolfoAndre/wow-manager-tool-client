@@ -21,7 +21,7 @@ export class ExpansionListComponent {
   panelState: boolean = false;
   @Input('expansion-items') expansionItems!: Array<ExpansionItem>;
 
-  constructor(private route: Router, private sharedService: SharedService) {
+  constructor(private sharedService: SharedService) {
   }
 
   findPath(parentPath: string | undefined, childPath: string | undefined): (string | undefined)[] {
