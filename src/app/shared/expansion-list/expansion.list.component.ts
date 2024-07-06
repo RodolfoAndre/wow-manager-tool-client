@@ -7,7 +7,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {CommonModule} from '@angular/common';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {ExpansionItem} from "./expansion.list.models";
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {SharedService} from "../shared.service";
 
 @Component({
@@ -21,13 +21,26 @@ export class ExpansionListComponent {
   panelState: boolean = false;
   @Input('expansion-items') expansionItems!: Array<ExpansionItem>;
 
-  constructor(private sharedService: SharedService) {
+  constructor(private sharedService: SharedService, private router: Router ) {
   }
 
   findPath(parentPath: string | undefined, childPath: string | undefined): (string | undefined)[] {
-    if (parentPath === undefined || parentPath === null) {
-      return [this.sharedService.getNavigationPath(), childPath];
+    return [this.findParentPath(parentPath), childPath];
+  }
+
+  findParentPath(parentPath: string | undefined): string {
+    if (parentPath !== undefined && parentPath !== null) {
+      return parentPath;
     }
-    return [parentPath, childPath];
+
+    let navigationPath = this.sharedService.getNavigationPath();
+    if (navigationPath !== undefined && navigationPath !== null) {
+      return navigationPath;
+    }
+
+    let urlSegments = this.router.url.split('/');
+    urlSegments.pop();
+    return urlSegments.join('/');
+
   }
 }
