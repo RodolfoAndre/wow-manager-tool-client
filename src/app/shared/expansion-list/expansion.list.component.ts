@@ -7,7 +7,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {CommonModule} from '@angular/common';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {ExpansionItem} from "./expansion.list.models";
-import {ActivatedRoute, Router, RouterLink} from "@angular/router";
+import {RouterLink} from "@angular/router";
 import {SharedService} from "../shared.service";
 
 @Component({
@@ -31,8 +31,3 @@ export class ExpansionListComponent {
     return [parentPath, childPath];
   }
 }
-
-
-/**  Copyright 2018 Google Inc. All Rights Reserved.
- Use of this source code is governed by an MIT-style license that
- can be found in the LICENSE file at http://angular.io/license */

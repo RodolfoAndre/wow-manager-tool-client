@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Character} from "./character/character.models";
+import {ApiService} from "./api/api.services";
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,11 @@ export class SharedService {
   private _selectedChar: Character | undefined;
 
   private _currentPath: string | undefined;
+
+  private _updateCharacterCallback?: (character: Character) => void | undefined;
+
+  constructor(private apiService: ApiService) {
+  }
 
   public setNavigationPath(path: (string | undefined)[]): void {
     this._currentPath = path.join("/");
@@ -22,7 +28,15 @@ export class SharedService {
   }
 
   public setSelectedCharacter(character: Character) {
-    console.log(character);
+    this._selectedChar = character;
+  }
+
+  public setUpdateCharacterCallback(updateCharacterCallback: (character: Character) => void | undefined) {
+    this._updateCharacterCallback = updateCharacterCallback;
+  }
+
+  public getSelectedCharacter(): Character | undefined {
+    return this._selectedChar;
   }
 
   static getItemLevelColor(itemLevel: number) {
@@ -34,17 +48,19 @@ export class SharedService {
       classStyle = "rare-background white-color white-text";
     } else if (itemLevel > 502 && itemLevel <= 515) {
       classStyle = "epic-background white-color white-text";
-    } else if (itemLevel > 515 && itemLevel <= 528) {
+    } else if (itemLevel > 515 && itemLevel <= 524) {
       classStyle = "legendary-background white-color white-text";
+    } else if (itemLevel > 524 && itemLevel <= 535) {
+      classStyle = "artifact-background black-color black-text";
     }
 
     return classStyle;
   }
 
-  static getClassColor(id: number) {
-    let classStyleClass: string = '';
+  getCurrentCharClassColor(): string {
+    let classStyleClass: string;
 
-    switch (id) {
+    switch (this._selectedChar?.id) {
 
       case 1:
         classStyleClass = 'warrior-background-color white-color white-text';
@@ -93,7 +109,12 @@ export class SharedService {
       case 12:
         classStyleClass = 'demon-hunter-background-color white-color white-text';
         break;
+
+      default:
+        classStyleClass = '';
+        break;
     }
+
     return classStyleClass;
   }
 }

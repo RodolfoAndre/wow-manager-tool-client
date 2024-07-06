@@ -1,55 +1,54 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core'
-import {ActivatedRoute} from '@angular/router';
+import {Component, Input, ViewChild} from '@angular/core'
+import {MatSort, MatSortModule} from '@angular/material/sort';
 import {CommonModule} from "@angular/common";
 import {ApiService} from "../shared/api/api.services";
-import {MatTableDataSource} from "@angular/material/table";
-import {Equipment, EquipmentsModel, EquipmentTableEntry} from "./equipment.model";
-import {MatSort} from "@angular/material/sort";
+import {MatTableDataSource, MatTableModule,} from "@angular/material/table";
+import {EquipmentTableEntry} from "./equipment.model";
 import {SharedService} from "../shared/shared.service";
+import {MatCard, MatCardContent} from "@angular/material/card";
+import {MatToolbar} from "@angular/material/toolbar";
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-equipment',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatCard, MatToolbar, MatCardContent, MatProgressSpinner, MatIcon, MatTableModule, MatSortModule],
   templateUrl: './equipment.component.html',
   styleUrl: './equipment.component.scss'
 })
-export class EquipmentComponent implements OnInit {
-  @Input() id!: number;
-  @ViewChild(MatSort) sort: MatSort | null = null;
-  dataSource: MatTableDataSource<EquipmentTableEntry> | undefined;
-  getItemLevelColor = SharedService.getItemLevelColor;
-  getClassColor = SharedService.getClassColor;
+export class EquipmentComponent {
 
-  constructor(private route: ActivatedRoute, private apiService: ApiService, private sharedService: SharedService) {
+  @ViewChild(MatSort) sort: MatSort | null = null;
+  displayedColumns: string[] = ['isBestInSlot', 'slotName', 'itemLevel', 'name', 'bestInSlotName', 'bestInSlotInstance', 'bestInSlotBossName'];
+  dataSource: any;
+  loaded: boolean = true;
+  getItemLevelColor = SharedService.getItemLevelColor;
+  getClassColor = this.sharedService.getCurrentCharClassColor;
+  getSelectedChar = this.sharedService.getSelectedCharacter;
+
+  constructor(private apiService: ApiService, private sharedService: SharedService) {
 
   }
 
-  ngOnInit() {
-    // this.route.paramMap.subscribe(params => {
-    //   let id = +params.get('id');
-    //   this.loaded = false;
-    //   if (this.currentId >= 0) {
-    //     this.getCurrentCharGearList();
-    //   } else {
-    //     this.messagingService.showMessage("Select a character in right panel");
-    //   }
-    // });
-    console.log(this.id);
-    this.apiService.getCharacterById(this.id).subscribe({
+  @Input()
+  set id(id: number) {
+    this.loaded = false;
+    this.apiService.getCharacterById(id).subscribe({
       next: (character) => {
         this.sharedService.setSelectedCharacter(character);
       }
     });
-    this.apiService.getEquipmentList(this.id, true).subscribe( {
+    this.apiService.getEquipmentList(id, true).subscribe( {
       next: (data) => {
         let equipmentTableEntries: Array<EquipmentTableEntry> = data.equipments.map(equipment => EquipmentTableEntry.build(equipment));
         this.dataSource = new MatTableDataSource(equipmentTableEntries);
         this.dataSource.sort = this.sort;
+        this.loaded = true;
       },
       error: err => {
 
       }
-    })
+    });
   }
 }
