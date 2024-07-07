@@ -1,4 +1,4 @@
-<mat-sidenav-container class="ct-fill-height" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+<mat-sidenav-container [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
   @if (leftNavItems.length > 0) {
     <mat-sidenav [mode]="mobileQuery.matches ? 'over' : 'side'"
                  [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" [opened]="leftPanelOpened">

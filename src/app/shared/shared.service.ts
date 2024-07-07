@@ -57,57 +57,57 @@ export class SharedService {
     return classStyle;
   }
 
-  getCurrentCharClassColor(): string {
+  static getCurrentCharClassColor(id: number): string {
     let classStyleClass: string;
 
-    switch (this._selectedChar?.id) {
+    switch (id) {
 
       case 1:
-        classStyleClass = 'warrior-background-color white-color white-text';
+        classStyleClass = 'warrior-background-color ct-white-color';
         break;
 
       case 2:
-        classStyleClass = 'paladin-background-color white-color white-text';
+        classStyleClass = 'paladin-background-color ct-white-color';
         break;
 
       case 3:
-        classStyleClass = 'hunter-background-color white-color white-text';
+        classStyleClass = 'hunter-background-color ct-white-color';
         break;
 
       case 4:
-        classStyleClass = 'rogue-background-color black-color black-text';
+        classStyleClass = 'rogue-background-color ct-black-color';
         break;
 
       case 5:
-        classStyleClass = 'priest-background-color black-color black-text';
+        classStyleClass = 'priest-background-color ct-black-color';
         break;
 
       case 6:
-        classStyleClass = 'death-knight-background-color white-color white-text'
+        classStyleClass = 'death-knight-background-color ct-white-color'
         break;
 
       case 7:
-        classStyleClass = 'shaman-background-color white-color white-text';
+        classStyleClass = 'shaman-background-color ct-white-color';
         break;
 
       case 8:
-        classStyleClass = 'mage-background-color white-color white-text';
+        classStyleClass = 'mage-background-color ct-white-color';
         break;
 
       case 9:
-        classStyleClass = 'warlock-background-color white-color white-text';
+        classStyleClass = 'warlock-background-color ct-white-color';
         break;
 
       case 10:
-        classStyleClass = 'monk-background-color black-color black-text';
+        classStyleClass = 'monk-background-color ct-black-color';
         break;
 
       case 11:
-        classStyleClass = 'druid-background-color white-color white-text';
+        classStyleClass = 'druid-background-color ct-white-color';
         break;
 
       case 12:
-        classStyleClass = 'demon-hunter-background-color white-color white-text';
+        classStyleClass = 'demon-hunter-background-color ct-white-color';
         break;
 
       default:

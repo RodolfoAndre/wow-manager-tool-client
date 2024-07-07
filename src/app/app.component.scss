@@ -1,11 +1,109 @@
 .app-container {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
+   display: flex;
+   flex-direction: column;
+   height: 100vh;
+ }
+
+.main-sidenav-toolbar {
   width: 100%;
-  height: 100%;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+}
+
+.elevation-z6 {
+  z-index: 6;
+}
+
+.side-nav-component {
+  flex: 1;
+  display: flex;
+  width: 100%;
+}
+
+.app-flex-toolbar {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.warrior-background-color {
+  background-color: #C79C6E;
+}
+
+.paladin-background-color {
+  background-color: #F58CBA;
+}
+
+.hunter-background-color {
+  background-color: #ABD473;
+}
+
+.rogue-background-color {
+  background-color: #FFF569;
+}
+
+.priest-background-color {
+  background-color: #FFFFFF;
+}
+
+.death-knight-background-color {
+  background-color: #C41F3B;
+}
+
+.shaman-background-color {
+  background-color: #0070DE;
+}
+
+.mage-background-color {
+  background-color: #40C7EB;
+}
+
+.warlock-background-color {
+  background-color: #8787ED;
+}
+
+.monk-background-color {
+  background-color: #00FF96;
+}
+
+.druid-background-color {
+  background-color: #FF7D0A;
+}
+
+.demon-hunter-background-color {
+  background-color: #A330C9;
+}
+
+.poor-background {
+  background: #9d9d9d;
+}
+
+.common-background {
+  background: #ffffff;
+}
+
+.uncommon-background {
+  background: #1eff00;
+}
+
+.rare-background {
+  background: #0070dd;
+}
+
+.epic-background {
+  background: #a335ee;
+}
+
+.mythic-background {
+  background: #a335ee;
+}
+
+.legendary-background {
+  background: #ff8000;
+}
+
+.artifact-background {
+  background: #e6cc80;
+}
+
+.heirloom-background {
+  background: #00ccff;
 }

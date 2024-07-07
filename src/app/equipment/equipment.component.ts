@@ -9,6 +9,7 @@ import {MatCard, MatCardContent} from "@angular/material/card";
 import {MatToolbar} from "@angular/material/toolbar";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {MatIcon} from "@angular/material/icon";
+import {Character} from "../shared/character/character.models";
 
 @Component({
   selector: 'app-equipment',
@@ -22,10 +23,10 @@ export class EquipmentComponent {
   @ViewChild(MatSort) sort: MatSort | null = null;
   displayedColumns: string[] = ['isBestInSlot', 'slotName', 'itemLevel', 'name', 'bestInSlotName', 'bestInSlotInstance', 'bestInSlotBossName'];
   dataSource: any;
-  loaded: boolean = true;
+  hasCharacterLoaded: boolean = true;
+  selectedChar: Character | undefined;
   getItemLevelColor = SharedService.getItemLevelColor;
-  getClassColor = this.sharedService.getCurrentCharClassColor;
-  getSelectedChar = this.sharedService.getSelectedCharacter;
+  getClassColor = SharedService.getCurrentCharClassColor;
 
   constructor(private apiService: ApiService, private sharedService: SharedService) {
 
@@ -33,10 +34,10 @@ export class EquipmentComponent {
 
   @Input()
   set id(id: number) {
-    this.loaded = false;
+    this.hasCharacterLoaded = false;
     this.apiService.getCharacterById(id).subscribe({
       next: (character) => {
-        this.sharedService.setSelectedCharacter(character);
+        this.selectedChar = character;
       }
     });
     this.apiService.getEquipmentList(id, true).subscribe( {
@@ -44,7 +45,7 @@ export class EquipmentComponent {
         let equipmentTableEntries: Array<EquipmentTableEntry> = data.equipments.map(equipment => EquipmentTableEntry.build(equipment));
         this.dataSource = new MatTableDataSource(equipmentTableEntries);
         this.dataSource.sort = this.sort;
-        this.loaded = true;
+        this.hasCharacterLoaded = true;
       },
       error: err => {
 

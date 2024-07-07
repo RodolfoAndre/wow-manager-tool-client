@@ -1,21 +1,27 @@
 <div class="app-container" [class.main-sidenav-is-mobile]="mobileQuery.matches">
   <mat-toolbar color="primary" class="main-sidenav-toolbar elevation-z6">
-    @if (componentConfig.leftSideNavItems.length > 0) {
-      <button mat-icon-button (click)="lnav.toggleLeft()">
-        <mat-icon>menu</mat-icon>
-      </button>
-    }
-    <h1 class="main-sidenav-app-name"> {{ componentConfig.title }}</h1>
-    @if (componentConfig.rightSideNavItems.length > 0) {
-      <button class="uk-align-right" mat-icon-button (click)="lnav.toggleRight()">
-        <mat-icon class=" no-padding no-margin">group</mat-icon>
-      </button>
-    }
+    <div class="app-flex-toolbar" style="display: flex">
+      <div>
+        @if (componentConfig.leftSideNavItems.length > 0) {
+          <button mat-icon-button (click)="lnav.toggleLeft()">
+            <mat-icon>menu</mat-icon>
+          </button>
+        }
+      </div>
+      <div style="margin: 10px;">
+        <h1 class="main-sidenav-app-name">{{ componentConfig.title }}</h1>
+      </div>
+      <div>
+        @if (componentConfig.rightSideNavItems.length > 0) {
+          <button *ngIf="componentConfig.rightSideNavItems.length > 0" mat-icon-button (click)="lnav.toggleRight()">
+            <mat-icon class="no-padding no-margin">group</mat-icon>
+          </button>
+        }
+      </div>
+    </div>
   </mat-toolbar>
-  <div class="ct-fill-height">
-    <side-nav-component #lnav [left-side-nav-items]="componentConfig.leftSideNavItems"
-                        [right-side-nav-items]="componentConfig.rightSideNavItems">
-      <router-outlet></router-outlet>
-    </side-nav-component>
-  </div>
+  <side-nav-component #lnav [left-side-nav-items]="componentConfig.leftSideNavItems"
+                      [right-side-nav-items]="componentConfig.rightSideNavItems" class="side-nav-component">
+    <router-outlet></router-outlet>
+  </side-nav-component>
 </div>

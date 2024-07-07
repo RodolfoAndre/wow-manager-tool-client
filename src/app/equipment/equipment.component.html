@@ -1,18 +1,17 @@
-<mat-card class="mat-elevation-z8">
-  <mat-toolbar *ngIf="loaded" ngClass="{{getClassColor()}}">
-    <div class="uk-grid uk-margin-top uk-height-1-1 uk-width-1-1">
-      <h3 *ngIf="getSelectedChar()" class="uk-width-3-5">{{getSelectedChar()?.name}} -
-        {{getSelectedChar()?.server}}
+<mat-card class="mat-elevation-z8 equipment-card">
+  <mat-toolbar *ngIf="hasCharacterLoaded && selectedChar" ngClass="{{getClassColor(selectedChar.classId)}}">
+    <div>
+      <h3>{{selectedChar.name}} -
+        {{selectedChar.server}}
       </h3>
     </div>
   </mat-toolbar>
   <mat-card-content>
-    <mat-spinner class="uk-align-center uk-margin-top" color="primary" *ngIf="!loaded"></mat-spinner>
-    <table [hidden] ="!loaded"
+    <mat-spinner color="primary" *ngIf="!hasCharacterLoaded"></mat-spinner>
+    <table [hidden] ="!hasCharacterLoaded"
             mat-table
             [dataSource]="dataSource"
             matSort
-            class="uk-width-1-1 uk-padding-remove "
     >
       <ng-container matColumnDef="isBestInSlot">
         <th
@@ -93,7 +92,7 @@
         <td mat-cell *matCellDef="let element">{{element.bestInSlotBossName}}</td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns; let element" [ngClass]="row.isBestInSlot ? 'background-color-light-green-200' : row.isBestInSlot != undefined ? 'background-color-red-100' : ''"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns; let element" [ngClass]="row.isBestInSlot ? 'success-background-color' : row.isBestInSlot != undefined ? 'error-background-color' : ''"></tr>
     </table>
   </mat-card-content>
 </mat-card>
