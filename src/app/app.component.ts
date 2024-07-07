@@ -13,7 +13,6 @@ import {Character} from "./shared/character/character.models";
 import {AppComponentConfig} from "./app.models";
 import {ExpansionItem} from "./shared/expansion-list/expansion.list.models";
 import {SharedService} from "./shared/shared.service";
-import {ThemeService} from "./shared/theme.service";
 
 @Component({
   imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, SidenavComponent,
@@ -23,7 +22,7 @@ import {ThemeService} from "./shared/theme.service";
   styleUrl: './app.component.scss',
   templateUrl: './app.component.html'
 })
-export class AppComponent implements OnDestroy, OnInit {
+export class AppComponent implements OnDestroy {
   componentConfig: AppComponentConfig = {
     title: 'Warcraft Manager Tool',
     showPreLoader: false,
@@ -35,15 +34,11 @@ export class AppComponent implements OnDestroy, OnInit {
   private _mobileQueryListener: () => void;
 
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private apiService: ApiService,
-              private sharedService: SharedService, private themeService: ThemeService) {
+              private sharedService: SharedService) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
     this.getCharacters();
-  }
-
-  ngOnInit() {
-    this.themeService.setThemeBasedOnPreference();
   }
 
   ngOnDestroy(): void {

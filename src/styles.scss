@@ -36,7 +36,7 @@ $dark-theme: mat.m2-define-dark-theme((
 
 @include mat.all-component-themes($light-theme);
 
-.dark-theme {
+@media (prefers-color-scheme: dark) {
   @include mat.all-component-colors($dark-theme);
 }
 
