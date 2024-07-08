@@ -1,7 +1,7 @@
 import {Component, Input, ViewChild} from '@angular/core'
 import {MatSort, MatSortModule} from '@angular/material/sort';
 import {CommonModule} from "@angular/common";
-import {ApiService} from "../shared/api/api.services";
+import {ApiService} from "../shared/api.service";
 import {MatTableDataSource, MatTableModule,} from "@angular/material/table";
 import {EquipmentTableEntry} from "./equipment.model";
 import {SharedService} from "../shared/shared.service";
@@ -10,6 +10,7 @@ import {MatToolbar} from "@angular/material/toolbar";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {MatIcon} from "@angular/material/icon";
 import {Character} from "../shared/character/character.models";
+import {MessagingService} from "../shared/messaging.service";
 
 @Component({
   selector: 'app-equipment',
@@ -28,7 +29,7 @@ export class EquipmentComponent {
   getItemLevelColor = SharedService.getItemLevelColor;
   getClassColor = SharedService.getCurrentCharClassColor;
 
-  constructor(private apiService: ApiService, private sharedService: SharedService) {
+  constructor(private apiService: ApiService, private messagingService: MessagingService) {
 
   }
 
@@ -48,7 +49,8 @@ export class EquipmentComponent {
         this.hasCharacterLoaded = true;
       },
       error: err => {
-
+        this.messagingService.showError(err);
+        this.hasCharacterLoaded = true;
       }
     });
   }

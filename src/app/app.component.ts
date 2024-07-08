@@ -8,7 +8,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {SidenavComponent} from './shared/sidenav/sidenav.component';
 import {CommonModule} from "@angular/common";
 import {RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
-import {ApiService} from './shared/api/api.services';
+import {ApiService} from './shared/api.service';
 import {Character} from "./shared/character/character.models";
 import {AppComponentConfig} from "./app.models";
 import {ExpansionItem} from "./shared/expansion-list/expansion.list.models";

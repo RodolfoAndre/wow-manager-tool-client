@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Character} from "./character/character.models";
-import {ApiService} from "./api/api.services";
+import {ApiService} from "./api.service";
 
 @Injectable({
   providedIn: 'root'
