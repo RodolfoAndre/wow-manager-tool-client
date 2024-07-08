@@ -7,7 +7,12 @@
     </div>
   </mat-toolbar>
   <mat-card-content>
-    <mat-spinner color="primary" *ngIf="!hasCharacterLoaded"></mat-spinner>
+    @if (!hasCharacterLoaded) {
+      <div class="ct-center ct-flex-column">
+        <mat-spinner color="primary" style="align-self: center"></mat-spinner>
+      </div>
+    }
+
     <table [hidden] ="!hasCharacterLoaded"
             mat-table
             [dataSource]="dataSource"

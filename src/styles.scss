@@ -60,3 +60,13 @@ body {
 .ct-white-color {
   color: white;
 }
+
+.ct-flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.ct-center {
+  align-items: center;
+  align-content: center;
+}
