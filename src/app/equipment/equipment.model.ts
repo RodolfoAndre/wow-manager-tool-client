@@ -1,4 +1,4 @@
-export interface Equipment {
+export interface EquipmentResponse {
   blizzardId: number;
   name: string;
   quality: string;
@@ -7,11 +7,11 @@ export interface Equipment {
   bossName: string;
   slotType: string;
   slotName: string;
-  bisEquipments: Array<Equipment>
+  bisEquipments: Array<EquipmentResponse>
 }
 
-export interface EquipmentsModel {
-  equipments: Array<Equipment>;
+export interface EquipmentListResponse {
+  equipments: Array<EquipmentResponse>;
 }
 
 export class EquipmentTableEntry {
@@ -23,7 +23,7 @@ export class EquipmentTableEntry {
   bestInSlotInstance?: string;
   bestInSlotBossName?: string;
 
-  static build(equipment: Equipment): EquipmentTableEntry {
+  static build(equipment: EquipmentResponse): EquipmentTableEntry {
     let bestInSlot = undefined;
     if (equipment.bisEquipments.length > 0) {
       let foundBisEquipment = equipment.bisEquipments.find(bisEquipment => bisEquipment.blizzardId === equipment.blizzardId);

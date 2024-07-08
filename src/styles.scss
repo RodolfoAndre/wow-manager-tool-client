@@ -70,3 +70,19 @@ body {
   align-items: center;
   align-content: center;
 }
+
+.ct-space-between {
+  justify-content: space-between;
+}
+
+.ct-flex {
+  display: flex;
+}
+
+.ct-margin-medium {
+  margin: 15px;
+}
+
+.mat-elevation-z8 {
+  z-index: 8;
+}

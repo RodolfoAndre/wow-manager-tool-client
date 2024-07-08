@@ -1,1 +1,34 @@
-<p>reputation works!</p>
+<mat-card class="mat-elevation-z8 ct-margin-medium">
+  @if (hasCharacterLoaded && selectedCharacter) {
+    <mat-toolbar ngClass="{{getClassColor(selectedCharacter.classId)}}">
+      <div>
+        <h3>{{ selectedCharacter.name }} -
+          {{ selectedCharacter.server }}
+        </h3>
+      </div>
+    </mat-toolbar>
+  }
+  <mat-card-content>
+    @if (!hasCharacterLoaded) {
+      <div class="ct-center ct-flex-column">
+        <mat-spinner color="primary" style="align-self: center"></mat-spinner>
+      </div>
+    } @else {
+      <mat-list>
+        @for (rep of reputations; track rep.name) {
+          <mat-list-item>
+            <div class="ct-flex ct-center ct-space-between">
+              <span>{{ rep.name }}</span>
+              <div>
+                <span>{{ rep.standing }} ({{ rep.current }}/{{ rep.max }})</span>
+
+              </div>
+            </div>
+            <mat-progress-bar mode="determinate" value="{{getProgressbarValue(rep)}}"
+                              title="{{rep.standing}} ({{rep.current}}/{{rep.max}})"></mat-progress-bar>
+          </mat-list-item>
+        }
+      </mat-list>
+    }
+  </mat-card-content>
+</mat-card>

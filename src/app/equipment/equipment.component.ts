@@ -27,7 +27,7 @@ export class EquipmentComponent {
   hasCharacterLoaded: boolean = true;
   selectedChar: Character | undefined;
   getItemLevelColor = SharedService.getItemLevelColor;
-  getClassColor = SharedService.getCurrentCharClassColor;
+  getClassColor = SharedService.getClassColor;
 
   constructor(private apiService: ApiService, private messagingService: MessagingService) {
 
@@ -37,13 +37,16 @@ export class EquipmentComponent {
   set id(id: number) {
     this.hasCharacterLoaded = false;
     this.apiService.getCharacterById(id).subscribe({
-      next: (character) => {
+      next: character => {
         this.selectedChar = character;
+      },
+      error: err => {
+        this.messagingService.showError(err);
       }
     });
     this.apiService.getEquipmentList(id, true).subscribe( {
-      next: (data) => {
-        let equipmentTableEntries: Array<EquipmentTableEntry> = data.equipments.map(equipment => EquipmentTableEntry.build(equipment));
+      next: equipmentResponse => {
+        let equipmentTableEntries: Array<EquipmentTableEntry> = equipmentResponse.equipments.map(equipment => EquipmentTableEntry.build(equipment));
         this.dataSource = new MatTableDataSource(equipmentTableEntries);
         this.dataSource.sort = this.sort;
         this.hasCharacterLoaded = true;

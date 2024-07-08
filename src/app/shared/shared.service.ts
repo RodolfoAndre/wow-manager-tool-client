@@ -57,7 +57,7 @@ export class SharedService {
     return classStyle;
   }
 
-  static getCurrentCharClassColor(id: number): string {
+  static getClassColor(id: number): string {
     let classStyleClass: string;
 
     switch (id) {
