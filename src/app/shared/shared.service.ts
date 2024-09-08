@@ -117,4 +117,14 @@ export class SharedService {
 
     return classStyleClass;
   }
+
+  sortByName(array: Array<any>) {
+    array?.sort((a, b) => {
+      if (a.name && b.name) {
+        return a.name.localeCompare(b.name);
+      } else {
+        return -1;
+      }
+    });
+  }
 }

@@ -1,1 +1,28 @@
-<p>mount works!</p>
+<mat-card class="mat-elevation-z8 ct-margin-medium">
+  @if (hasCharacterLoaded && selectedCharacter) {
+    <mat-toolbar ngClass="{{getClassColor(selectedCharacter.classId)}}">
+      <div>
+        <h3>{{ selectedCharacter.name }} -
+          {{ selectedCharacter.server }}
+        </h3>
+      </div>
+    </mat-toolbar>
+  }
+  <mat-card-content>
+    @if (!hasCharacterLoaded) {
+      <div class="ct-center ct-flex-column">
+        <mat-spinner color="primary" style="align-self: center"></mat-spinner>
+      </div>
+    } @else {
+      <mat-list>
+        @for (mount of mounts; track mount.id) {
+          <mat-list-item>
+            <div class="ct-flex ct-center ct-space-between">
+              <span>{{ mount.name }}</span>
+            </div>
+          </mat-list-item>
+        }
+      </mat-list>
+    }
+  </mat-card-content>
+</mat-card>

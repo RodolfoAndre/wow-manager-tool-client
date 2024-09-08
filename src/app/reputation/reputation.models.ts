@@ -1,9 +1,9 @@
 export interface ReputationListResponse {
-  reputations?: Array<ReputationResponse>;
+  reputations: Array<ReputationResponse>;
 }
 
 export interface ReputationResponse {
-  name?: string;
+  name: string;
   faction?: string;
   expansion?: string;
   standing?: string;

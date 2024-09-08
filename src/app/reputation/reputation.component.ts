@@ -33,7 +33,7 @@ export class ReputationComponent {
   reputations? : Array<ReputationResponse>;
   getClassColor = SharedService.getClassColor;
 
-  constructor(private apiService: ApiService, private messagingService: MessagingService) {
+  constructor(private apiService: ApiService, private messagingService: MessagingService, private sharedService: SharedService) {
   }
 
   @Input()
@@ -47,16 +47,12 @@ export class ReputationComponent {
         this.messagingService.showError(err);
       }
     });
+
     this.apiService.getReputationList(id).subscribe( {
       next: reputationListResponse => {
         this.reputations = reputationListResponse.reputations;
-        this.reputations?.sort((a, b) => {
-           if (a.name && b.name) {
-             return a.name.localeCompare(b.name);
-           } else {
-             return -1;
-           }
-        });
+
+        this.sharedService.sortByName(this.reputations);
         this.hasCharacterLoaded = true;
       },
       error: err => {

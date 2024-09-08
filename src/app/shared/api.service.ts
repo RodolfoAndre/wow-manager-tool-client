@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Character} from "./character/character.models";
 import {EquipmentListResponse} from "../equipment/equipment.model";
 import {ReputationListResponse} from "../reputation/reputation.models";
+import {MountListResponse} from "../mount/mount.model";
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +38,7 @@ export class ApiService {
   }
 
   getMountList(id: number) {
-    return this.httpClient.get(`${this.API_URL}/mount/list/${id}`);
+    return this.httpClient.get<MountListResponse>(`${this.API_URL}/mount/list/${id}`);
   }
 
   getReputationList(id: number) {
