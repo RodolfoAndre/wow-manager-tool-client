@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ViewChild, ViewContainerRef} from '@angular/core';
 import {MatListModule} from '@angular/material/list';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
@@ -9,19 +9,20 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {ExpansionItem} from "./expansion.list.models";
 import {Router, RouterLink} from "@angular/router";
 import {SharedService} from "../shared.service";
+import {CharacterListItemComponent} from "../../character-list-item/character-list-item.component";
 
 @Component({
   selector: 'expansion-list',
   templateUrl: 'expansion.list.component.html',
   styleUrls: ['expansion.list.component.scss'],
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, CommonModule, MatExpansionModule, RouterLink],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, CommonModule, MatExpansionModule, RouterLink, CharacterListItemComponent],
   standalone: true
 })
 export class ExpansionListComponent {
   panelState: boolean = false;
   @Input('expansion-items') expansionItems!: Array<ExpansionItem>;
 
-  constructor(private sharedService: SharedService, private router: Router ) {
+  constructor(private sharedService: SharedService, private router: Router) {
   }
 
   findPath(parentPath: string | undefined, childPath: string | undefined): (string | undefined)[] {

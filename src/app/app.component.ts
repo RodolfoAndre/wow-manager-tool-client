@@ -15,6 +15,7 @@ import {ExpansionItem} from "./shared/expansion-list/expansion.list.models";
 import {SharedService} from "./shared/shared.service";
 import {AddNewCharacterComponent} from "./add-new-character/add-new-character.component";
 import {MatDialog} from "@angular/material/dialog";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
   imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, SidenavComponent,
@@ -37,7 +38,7 @@ export class AppComponent implements OnDestroy {
   private _mobileQueryListener: () => void;
 
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private apiService: ApiService,
-              private sharedService: SharedService, private cdr: ChangeDetectorRef) {
+              private sharedService: SharedService, private sanitizer: DomSanitizer) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -109,7 +110,9 @@ export class AppComponent implements OnDestroy {
         name: character.name,
         icon: "person",
         path: character.id?.toString(),
-        onClick: () => {this.sharedService.setSelectedCharacter(character)}
+        model: "CharacterListItem",
+        onClick: () => {this.sharedService.setSelectedCharacter(character)},
+        customParams: [() => {console.log("delete " + character.id)}]
       };
       if (serverExpansionItem) {
         serverExpansionItem.children?.push(charListItem);

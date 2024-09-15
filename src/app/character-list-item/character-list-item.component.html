@@ -1,0 +1,13 @@
+<div class='ct-flex ct-center' style='justify-content: space-between'>
+  <div [routerLink]="path">
+    <a>
+      <div class='ct-flex ct-center'>
+        <mat-icon class="material-icons md-18" style='margin-right: 1em;'>person</mat-icon>
+        <div><span>{{ name }}</span></div>
+      </div>
+    </a>
+  </div>
+  <button mat-button (click)="onDelete()">
+    <mat-icon class="material-icons md-18">delete</mat-icon>
+  </button>
+</div>

@@ -8,10 +8,20 @@
     </mat-panel-title>
   </mat-expansion-panel-header>
   <mat-nav-list>
-    <mat-list-item *ngFor="let childItem of item.children" [routerLink]="findPath(item.path, childItem.path)" (click)="childItem.onClick?.()">
-      <a>
-        <mat-icon class="material-icons md-18">{{ childItem.icon }}</mat-icon>
-        <span>{{ childItem.name }}</span></a>
-    </mat-list-item>
+    @for (childItem of item.children; track childItem.name) {
+      @if (childItem.model === "CharacterListItem") {
+        <mat-list-item>
+          <app-character-list-item [name]="childItem.name"
+                                   [path]="findPath(item.path, childItem.path)"
+                                   [onDelete]="childItem.customParams?.[0]"></app-character-list-item>
+        </mat-list-item>
+      } @else {
+        <mat-list-item [routerLink]="findPath(item.path, childItem.path)" (click)="childItem.onClick?.()">
+        <a>
+          <mat-icon class="material-icons md-18">{{ childItem.icon }}</mat-icon>
+          <span>{{ childItem.name }}</span></a>
+        </mat-list-item>
+      }
+    }
   </mat-nav-list>
 </mat-expansion-panel>
