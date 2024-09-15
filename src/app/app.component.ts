@@ -1,5 +1,5 @@
 import {MediaMatcher} from '@angular/cdk/layout';
-import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -13,6 +13,8 @@ import {Character} from "./shared/character/character.models";
 import {AppComponentConfig} from "./app.models";
 import {ExpansionItem} from "./shared/expansion-list/expansion.list.models";
 import {SharedService} from "./shared/shared.service";
+import {AddNewCharacterComponent} from "./add-new-character/add-new-character.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, SidenavComponent,
@@ -30,11 +32,12 @@ export class AppComponent implements OnDestroy {
     leftSideNavItems: this.buildLeftSideNavItems()
   }
 
+  readonly dialog = inject(MatDialog);
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
 
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private apiService: ApiService,
-              private sharedService: SharedService) {
+              private sharedService: SharedService, private cdr: ChangeDetectorRef) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -51,9 +54,9 @@ export class AppComponent implements OnDestroy {
         this.componentConfig.showPreLoader = false;
         this.componentConfig.rightSideNavItems = this.buildRightSideNavItems(characters);
       },
-      error: (erro) => {
+      error: (error) => {
         this.componentConfig.showPreLoader = false;
-        // this.messagingService.showError(erro);
+        // this.messagingService.showError(error);
       }
     });
   }
@@ -97,11 +100,6 @@ export class AppComponent implements OnDestroy {
       }];
   }
 
-  private findServersFor(characters: Array<Character>) {
-    let servers = characters.map(char => char.server.toLowerCase());
-    return new Set(servers);
-  }
-
   private buildRightSideNavItems(characters: Array<Character>) {
     let sideNavBar: Array<ExpansionItem> = [];
 
@@ -110,7 +108,7 @@ export class AppComponent implements OnDestroy {
       let charListItem = {
         name: character.name,
         icon: "person",
-        path: character.id.toString(),
+        path: character.id?.toString(),
         onClick: () => {this.sharedService.setSelectedCharacter(character)}
       };
       if (serverExpansionItem) {
@@ -137,5 +135,12 @@ export class AppComponent implements OnDestroy {
       return sideNavBar[serverIndex];
     }
     return undefined;
+  }
+
+  protected onAddNewCharacterClick() {
+    const dialogRef = this.dialog.open(AddNewCharacterComponent);
+    dialogRef.afterClosed().subscribe(() => {
+      this.getCharacters();
+    });
   }
 }

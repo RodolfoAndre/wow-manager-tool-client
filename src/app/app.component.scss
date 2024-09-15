@@ -107,3 +107,10 @@
 .heirloom-background {
   background: #00ccff;
 }
+
+.mat-fab-button {
+  position: fixed;
+  z-index: 2;
+  bottom: 2em;
+  right: 10em;
+}

@@ -1,6 +1,6 @@
 export interface Character {
-  id: number;
+  id?: number;
   name: string;
   server: string;
-  classId: number;
+  classId?: number;
 }

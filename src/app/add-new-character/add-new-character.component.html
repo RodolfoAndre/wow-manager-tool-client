@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>Save Character</h2>
+<mat-dialog-content>
+  <div>
+    <mat-form-field>
+      <mat-label>Character Name</mat-label>
+      <input matInput name="character" [(ngModel)]="character.name" type="text">
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <mat-label>Character Server</mat-label>
+      <input matInput name="server" [(ngModel)]="character.server"
+             (ngModelChange)="onServerInputChange()" type="text"
+             [matAutocomplete]="serverAuto">
+    </mat-form-field>
+    <mat-autocomplete #serverAuto="matAutocomplete">
+      @for (server of filteredServers; track server) {
+        <mat-option [value]="server">{{ server }}</mat-option>
+      }
+    </mat-autocomplete>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button (click)="closeDialog()">Close</button>
+  <button mat-button type="submit" (click)="save(character)">Save</button>
+</mat-dialog-actions>

@@ -26,7 +26,7 @@ export class ApiService {
   }
 
   createChar(char: Character) {
-    return this.httpClient.post(`${this.API_URL}/char`, char);
+    return this.httpClient.post<VoidFunction>(`${this.API_URL}/char`, char);
   }
 
   deleteCharacter(id: number) {
@@ -50,7 +50,7 @@ export class ApiService {
   }
 
   getServers() {
-    return this.httpClient.get<Array<String>>(`${this.API_URL}/data/server`);
+    return this.httpClient.get<Array<string>>(`${this.API_URL}/data/server`);
   }
 
   getIconUrl(iconPath : string, size : number) {
