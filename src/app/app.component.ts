@@ -13,9 +13,11 @@ import {Character} from "./shared/character/character.models";
 import {AppComponentConfig} from "./app.models";
 import {ExpansionItem} from "./shared/expansion-list/expansion.list.models";
 import {SharedService} from "./shared/shared.service";
-import {AddNewCharacterComponent} from "./add-new-character/add-new-character.component";
+import {AddNewCharacterDialogComponent} from "./shared/dialog/add-new-character-dialog/add-new-character-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {DomSanitizer} from "@angular/platform-browser";
+import {MessagingService} from "./shared/messaging.service";
+import {DialogService} from "./shared/dialog/dialog.service";
 
 @Component({
   imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, SidenavComponent,
@@ -38,7 +40,7 @@ export class AppComponent implements OnDestroy {
   private _mobileQueryListener: () => void;
 
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private apiService: ApiService,
-              private sharedService: SharedService, private sanitizer: DomSanitizer) {
+              private sharedService: SharedService, private messagingService: MessagingService, private dialogService: DialogService) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -112,7 +114,23 @@ export class AppComponent implements OnDestroy {
         path: character.id?.toString(),
         model: "CharacterListItem",
         onClick: () => {this.sharedService.setSelectedCharacter(character)},
-        customParams: [() => {console.log("delete " + character.id)}]
+        customParams: [() => {
+          let deleteEvents = {
+            confirm: () => {
+              if (!character.id) return;
+              this.apiService.deleteCharacter(character.id).subscribe({
+                next: () => {
+                  this.messagingService.showMessage(`${character.name}-${character.server} deleted`);
+                  this.getCharacters();
+                },
+                error: err => {
+                  this.messagingService.showError(err);
+                }
+              });
+            }
+          };
+          this.dialogService.openConfirmDialog(deleteEvents);
+        }]
       };
       if (serverExpansionItem) {
         serverExpansionItem.children?.push(charListItem);
@@ -141,9 +159,18 @@ export class AppComponent implements OnDestroy {
   }
 
   protected onAddNewCharacterClick() {
-    const dialogRef = this.dialog.open(AddNewCharacterComponent);
-    dialogRef.afterClosed().subscribe(() => {
-      this.getCharacters();
+    this.dialogService.openAddNewCharacterDialog({
+      confirm: (character) => {
+        this.apiService.createChar(character).subscribe({
+          next: () => {
+            this.messagingService.showMessage("Saved successfully");
+            this.getCharacters();
+          },
+          error: err => {
+            this.messagingService.showError(err.error);
+          }
+        });
+      }
     });
   }
 }

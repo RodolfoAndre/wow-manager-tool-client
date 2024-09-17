@@ -30,7 +30,7 @@ export class ApiService {
   }
 
   deleteCharacter(id: number) {
-    return this.httpClient.delete(`${this.API_URL}/char/${id}`);
+    return this.httpClient.delete<VoidFunction>(`${this.API_URL}/char/${id}`);
   }
 
   getMountsDrop(id: number) {

@@ -3,14 +3,15 @@ import {MatDialogActions, MatDialogContent, MatDialogRef, MatDialogTitle} from "
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatAutocomplete, MatAutocompleteTrigger, MatOption} from "@angular/material/autocomplete";
 import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {ApiService} from "../shared/api.service";
-import {MessagingService} from "../shared/messaging.service";
-import {Character} from "../shared/character/character.models";
+import {ApiService} from "../../api.service";
+import {MessagingService} from "../../messaging.service";
+import {Character} from "../../character/character.models";
 import {MatInput} from "@angular/material/input";
 import {MatButton} from "@angular/material/button";
+import {SharedService} from "../../shared.service";
 
 @Component({
-  selector: 'app-add-new-character',
+  selector: 'app-add-new-character-dialog',
   standalone: true,
   imports: [
     MatDialogContent,
@@ -26,10 +27,10 @@ import {MatButton} from "@angular/material/button";
     MatLabel,
     MatButton
   ],
-  templateUrl: './add-new-character.component.html',
-  styleUrl: './add-new-character.component.scss'
+  templateUrl: './add-new-character-dialog.component.html',
+  styleUrl: './add-new-character-dialog.component.scss'
 })
-export class AddNewCharacterComponent {
+export class AddNewCharacterDialogComponent {
 
   servers : Array<string> = [];
   filteredServers: Array<string> = [];
@@ -39,7 +40,7 @@ export class AddNewCharacterComponent {
   };
 
   constructor(
-    private dialogRef: MatDialogRef<AddNewCharacterComponent>,
+    private dialogRef: MatDialogRef<AddNewCharacterDialogComponent>,
     private apiService: ApiService,
     private messagingService: MessagingService) {
     this.getServers();
@@ -58,16 +59,7 @@ export class AddNewCharacterComponent {
   }
 
   protected save(character : Character) {
-    console.log(character);
-    this.apiService.createChar(character).subscribe({
-      next: () => {
-        this.messagingService.showMessage("Saved successfully");
-      },
-      error: err => {
-        this.messagingService.showError(err.error);
-      }
-    });
-    this.closeDialog();
+    this.dialogRef.close(character);
   }
 
   protected closeDialog() {
