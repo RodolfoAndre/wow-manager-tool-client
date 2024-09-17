@@ -2,13 +2,12 @@ import {Component} from '@angular/core';
 import {MatDialogActions, MatDialogContent, MatDialogRef, MatDialogTitle} from "@angular/material/dialog";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatAutocomplete, MatAutocompleteTrigger, MatOption} from "@angular/material/autocomplete";
-import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ApiService} from "../../api.service";
 import {MessagingService} from "../../messaging.service";
 import {Character} from "../../character/character.models";
 import {MatInput} from "@angular/material/input";
 import {MatButton} from "@angular/material/button";
-import {SharedService} from "../../shared.service";
 
 @Component({
   selector: 'app-add-new-character-dialog',

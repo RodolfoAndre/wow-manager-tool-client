@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Character} from "./character/character.models";
-import {EquipmentListResponse} from "../equipment/equipment.model";
 import {ReputationListResponse} from "../reputation/reputation.models";
 import {MountListResponse} from "../mount/mount.model";
+import {EquipmentListResponse, MountsDropResponse} from "./api.models";
 
 @Injectable({
   providedIn: 'root'
@@ -26,15 +26,15 @@ export class ApiService {
   }
 
   createChar(char: Character) {
-    return this.httpClient.post<VoidFunction>(`${this.API_URL}/char`, char);
+    return this.httpClient.post<void>(`${this.API_URL}/char`, char);
   }
 
   deleteCharacter(id: number) {
-    return this.httpClient.delete<VoidFunction>(`${this.API_URL}/char/${id}`);
+    return this.httpClient.delete<void>(`${this.API_URL}/char/${id}`);
   }
 
   getMountsDrop(id: number) {
-    return this.httpClient.get(`${this.API_URL}/mount/drop/${id}`);
+    return this.httpClient.get<MountsDropResponse>(`${this.API_URL}/mount/drop/${id}`);
   }
 
   getMountList(id: number) {

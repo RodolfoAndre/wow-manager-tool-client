@@ -1,0 +1,60 @@
+<mat-card class="mat-elevation-z8 ct-margin-medium">
+  @if (hasCharacterLoaded && selectedCharacter) {
+    <mat-toolbar ngClass="{{getClassColor(selectedCharacter.classId)}}">
+      <div>
+        <h3>{{ selectedCharacter.name }} -
+          {{ selectedCharacter.server }}
+        </h3>
+      </div>
+    </mat-toolbar>
+  }
+  <mat-card-content>
+    @if (!hasCharacterLoaded) {
+      <div class="ct-center ct-flex-column">
+        <mat-spinner color="primary" style="align-self: center"></mat-spinner>
+      </div>
+    } @else {
+      <mat-list>
+        @for (mount of mounts; track mount.id) {
+          <mat-accordion>
+            @for (mount of mounts; track mount.id) {
+              <mat-expansion-panel *ngFor="let mount of getCurrentChar().mounts | filter : searchText; index as i"
+                                   (opened)="openItem(i)"
+                                   (closed)="closeItem(i)">
+
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <span>{{ mount.name }} ({{ mount.bossName }})</span>
+                    <div>
+                      @if (mount.collected) {
+                        <mat-icon
+                          title="{{getCurrentChar().name}}-{{getCurrentChar().server}} has not tried this mount this week">
+                          done
+                        </mat-icon>
+                      }
+                      @if (!mount.madeThisWeek) {
+                        <mat-icon
+                          title="{{getCurrentChar().name}}-{{getCurrentChar().server}} has not tried this mount this week">
+                          timelapse
+                        </mat-icon>
+                      }
+                    </div>
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    <span title="Next chance of drop">{{ twoDecimal(mount.nextDropRate * 100) }}%</span>
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                @if (panelState && panelState[i]) {
+                  <div>
+                    <canvas id="{{getChartId(mount.name)}}" width="400px" height="400px"></canvas>
+                    {{ startChart(i, mount) }}
+                  </div>
+                }
+              </mat-expansion-panel>
+            }
+          </mat-accordion>
+        }
+      </mat-list>
+    }
+  </mat-card-content>
+</mat-card>

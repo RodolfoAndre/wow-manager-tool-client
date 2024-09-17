@@ -1,18 +1,4 @@
-export interface EquipmentResponse {
-  blizzardId: number;
-  name: string;
-  quality: string;
-  itemLevel: number;
-  instanceName: string;
-  bossName: string;
-  slotType: string;
-  slotName: string;
-  bisEquipments: Array<EquipmentResponse>
-}
-
-export interface EquipmentListResponse {
-  equipments: Array<EquipmentResponse>;
-}
+import {EquipmentResponse} from "../shared/api.models";
 
 export class EquipmentTableEntry {
   name?: string;

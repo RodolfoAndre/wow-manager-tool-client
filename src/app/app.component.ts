@@ -1,5 +1,5 @@
 import {MediaMatcher} from '@angular/cdk/layout';
-import {ChangeDetectorRef, Component, inject, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, inject, OnDestroy} from '@angular/core';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -13,9 +13,7 @@ import {Character} from "./shared/character/character.models";
 import {AppComponentConfig} from "./app.models";
 import {ExpansionItem} from "./shared/expansion-list/expansion.list.models";
 import {SharedService} from "./shared/shared.service";
-import {AddNewCharacterDialogComponent} from "./shared/dialog/add-new-character-dialog/add-new-character-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
-import {DomSanitizer} from "@angular/platform-browser";
 import {MessagingService} from "./shared/messaging.service";
 import {DialogService} from "./shared/dialog/dialog.service";
 
@@ -59,7 +57,7 @@ export class AppComponent implements OnDestroy {
       },
       error: (error) => {
         this.componentConfig.showPreLoader = false;
-        // this.messagingService.showError(error);
+        this.messagingService.showError(error);
       }
     });
   }

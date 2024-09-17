@@ -17,7 +17,7 @@ describe('AppComponent', () => {
   it(`should have the 'knwow-how' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('knwow-how');
+    expect(app.componentConfig.title).toEqual('Warcraft Manager Tool');
   });
 
   it('should render title', () => {
