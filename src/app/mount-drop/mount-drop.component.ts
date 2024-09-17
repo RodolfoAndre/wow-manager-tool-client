@@ -8,6 +8,7 @@ import {
   MatAccordion,
   MatExpansionPanel,
   MatExpansionPanelDescription,
+  MatExpansionPanelHeader,
   MatExpansionPanelTitle
 } from "@angular/material/expansion";
 import {MatIcon} from "@angular/material/icon";
@@ -16,6 +17,7 @@ import {SharedService} from "../shared/shared.service";
 import {ApiService} from "../shared/api.service";
 import {MessagingService} from "../shared/messaging.service";
 import {MountDropResponse} from "../shared/api.models";
+import {ChatService} from "../shared/chart.service";
 
 @Component({
   selector: 'app-mount-drop',
@@ -32,7 +34,8 @@ import {MountDropResponse} from "../shared/api.models";
     MatExpansionPanel,
     MatExpansionPanelTitle,
     MatIcon,
-    MatExpansionPanelDescription
+    MatExpansionPanelDescription,
+    MatExpansionPanelHeader
   ],
   templateUrl: './mount-drop.component.html',
   styleUrl: './mount-drop.component.scss'
@@ -41,9 +44,15 @@ export class MountDropComponent {
   hasCharacterLoaded: boolean = false;
   selectedCharacter?: Character;
   getClassColor = SharedService.getClassColor;
-  private mounts: Array<MountDropResponse> = [];
+  mounts: Array<MountDropResponse> = [];
 
-  constructor(private apiService: ApiService, private sharedService: SharedService, private messagingService: MessagingService) {
+  panelState : Array<boolean> = [];
+  isRender : Array<boolean> = [];
+
+  constructor(private apiService: ApiService,
+              private sharedService: SharedService,
+              private messagingService: MessagingService,
+              private chartService: ChatService) {
   }
 
   @Input()
@@ -70,5 +79,29 @@ export class MountDropComponent {
         this.hasCharacterLoaded = true;
       }
     });
+  }
+
+  startChart(i: number, mount: any) {
+    if (this.panelState[i] && !this.isRender[i]) {
+      this.chartService.buildChart(mount);
+      this.isRender[i] = true;
+    }
+  }
+
+  openItem(index: number) {
+    this.panelState[index] = true;
+  }
+
+  closeItem(index: number) {
+    this.panelState[index] = false;
+    this.isRender[index] = false;
+  }
+
+  twoDecimals(number : number) : number {
+    return Math.round(number * 100) / 100;
+  }
+
+  getChartId(name: string) {
+    return this.chartService.getChartId(name);
   }
 }
