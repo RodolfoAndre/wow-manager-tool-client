@@ -79,6 +79,10 @@ body {
   display: flex;
 }
 
+.ct-flex-vertical {
+  flex-direction: column;
+}
+
 .ct-margin-medium {
   margin: 15px;
 }

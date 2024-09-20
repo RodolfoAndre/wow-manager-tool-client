@@ -46,7 +46,17 @@ export class EquipmentComponent {
     });
     this.apiService.getEquipmentList(id, true).subscribe( {
       next: equipmentResponse => {
-        let equipmentTableEntries: Array<EquipmentTableEntry> = equipmentResponse.equipments.map(equipment => EquipmentTableEntry.build(equipment));
+        let equipmentTableEntries: Array<EquipmentTableEntry> = equipmentResponse.equipments
+          .filter(equipmentResponse => equipmentResponse.slotType.indexOf("1") <= 0 && equipmentResponse.slotType.indexOf("2") <= 0)
+          .map(equipment => EquipmentTableEntry.build(equipment));
+
+        equipmentTableEntries = equipmentTableEntries.concat(EquipmentTableEntry.buildForSameSlotType(
+          equipmentResponse.equipments
+            .filter(equipmentResponse => equipmentResponse.slotType.indexOf("TRINKET") >= 0)));
+
+        equipmentTableEntries = equipmentTableEntries.concat(EquipmentTableEntry.buildForSameSlotType(
+          equipmentResponse.equipments
+            .filter(equipmentResponse => equipmentResponse.slotType.indexOf("FINGER") >= 0)));
         this.dataSource = new MatTableDataSource(equipmentTableEntries);
         this.dataSource.sort = this.sort;
         this.hasCharacterLoaded = true;

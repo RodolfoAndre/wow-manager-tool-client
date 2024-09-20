@@ -30,3 +30,32 @@ export interface MountDropResponse {
 export interface MountsDropResponse {
   mounts: Array<MountDropResponse>;
 }
+
+export interface SpecializationsResponse {
+  specializations: Array<SpecializationResponse>;
+}
+
+export interface SpecializationResponse {
+  id: number;
+  name: string;
+}
+
+export interface BestInSlotResponse {
+  blizzardId: number;
+  slotType: string;
+  name: string;
+  bisPreferred: boolean;
+  instanceId: number;
+}
+
+export interface BestInSlotsResponse {
+  id: number;
+  specId: number;
+  bestInSlots: Array<BestInSlotResponse>;
+}
+
+export interface BestsInSlotsRequest {
+  id: number | undefined;
+  specId: number;
+  bestInSlotsIds: Array<number>;
+}

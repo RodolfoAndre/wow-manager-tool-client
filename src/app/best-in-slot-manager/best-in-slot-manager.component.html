@@ -1,0 +1,45 @@
+<mat-card class="mat-elevation-z8 ct-margin-medium">
+  <mat-toolbar>
+    <div>
+      <h3>Best In Slot Management</h3>
+    </div>
+  </mat-toolbar>
+  <mat-card-content style="padding: 1em;">
+    @if (loadingPage) {
+      <div class="ct-center ct-flex-column">
+        <mat-spinner color="primary" style="align-self: center"></mat-spinner>
+      </div>
+    } @else {
+      <div>
+        <mat-form-field>
+          <mat-label>Specialization</mat-label>
+          <mat-select [(ngModel)]="selectedSpecialization" name="specialization" (selectionChange)="onSpecializationChange($event)">
+            @for (specialization of specializations; track specialization.id) {
+              <mat-option [value]="specialization.id">{{ specialization.name }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+      @if (loadingSpecialization) {
+        <div class="ct-center ct-flex-column">
+          <mat-spinner color="primary" style="align-self: center"></mat-spinner>
+        </div>
+      } @else if (selectedSpecialization) {
+        <div>
+          <mat-form-field style="width: 45%;  margin: 0.2em;">
+            <mat-label>Items ids (Separated by ',')</mat-label>
+            <textarea [(ngModel)]="itemsIds" style="height: 10em;" matInput
+                      placeholder="Ex.&#10;32104&#10;21349&#10;..."></textarea>
+          </mat-form-field>
+        </div>
+      }
+
+      <button mat-fab extended (click)="onSave()">
+        <mat-icon>save</mat-icon>
+        Save
+      </button>
+    }
+
+  </mat-card-content>
+</mat-card>

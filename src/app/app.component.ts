@@ -98,6 +98,16 @@ export class AppComponent implements OnDestroy {
           path: "list",
           onClick: () => this.sharedService.setNavigationPath(['equipment', 'list'])
         }]
+      },
+      {
+        name: "Management",
+        path: "management",
+        children: [{
+          name: "Best In Slots",
+          icon: "inventory2",
+          path: "bis",
+          onClick: () => this.sharedService.setNavigationPath(['management', 'bis'])
+        }]
       }];
   }
 

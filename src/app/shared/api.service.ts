@@ -3,16 +3,22 @@ import {HttpClient} from "@angular/common/http";
 import {Character} from "./character/character.models";
 import {ReputationListResponse} from "../reputation/reputation.models";
 import {MountListResponse} from "../mount/mount.model";
-import {EquipmentListResponse, MountsDropResponse} from "./api.models";
+import {
+  BestInSlotResponse,
+  BestInSlotsResponse, BestsInSlotsRequest,
+  EquipmentListResponse,
+  MountsDropResponse,
+  SpecializationsResponse
+} from "./api.models";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  private API_URL : string = "http://localhost:8080";
+  private API_URL: string = "http://localhost:8080";
 
-  private RENDER_URL : string = 'https://render-us.worldofwarcraft.com/icons';
+  private RENDER_URL: string = 'https://render-us.worldofwarcraft.com/icons';
 
   constructor(private httpClient: HttpClient) {
   }
@@ -21,7 +27,7 @@ export class ApiService {
     return this.httpClient.get<Array<Character>>(`${this.API_URL}/char`);
   }
 
-  getCharacterById(id : number) {
+  getCharacterById(id: number) {
     return this.httpClient.get<Character>(`${this.API_URL}/char/${id}`);
   }
 
@@ -53,7 +59,19 @@ export class ApiService {
     return this.httpClient.get<Array<string>>(`${this.API_URL}/data/server`);
   }
 
-  getIconUrl(iconPath : string, size : number) {
+  getSpecializations() {
+    return this.httpClient.get<SpecializationsResponse>(`${this.API_URL}/data/specialization`);
+  }
+
+  getIconUrl(iconPath: string, size: number) {
     return `${this.RENDER_URL}/${size}/${iconPath}.jpg`
+  }
+
+  getBestInSlots(id: number) {
+    return this.httpClient.get<BestInSlotsResponse>(`${this.API_URL}/best-in-slot/${id}`);
+  }
+
+  saveSpecializationBis(request: BestsInSlotsRequest) {
+    return this.httpClient.post(`${this.API_URL}/best-in-slot`, request);
   }
 }
