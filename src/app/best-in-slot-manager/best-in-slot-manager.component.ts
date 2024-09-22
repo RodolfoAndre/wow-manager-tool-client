@@ -21,7 +21,7 @@ import {MatSelect, MatSelectChange} from "@angular/material/select";
 import {FormsModule} from "@angular/forms";
 import {
   BestInSlotsResponse,
-  BestsInSlotsRequest,
+  BestsInSlotsRequest, PlayableClassesResponse, PlayableClassResponse,
   SpecializationResponse,
   SpecializationsResponse
 } from "../shared/api.models";
@@ -30,6 +30,7 @@ import {ApiService} from "../shared/api.service";
 import {MatInput} from "@angular/material/input";
 import {MatFabButton} from "@angular/material/button";
 import {MessagingService} from "../shared/messaging.service";
+import {response} from "express";
 
 @Component({
   selector: 'app-best-in-slot-manager',
@@ -41,22 +42,36 @@ import {MessagingService} from "../shared/messaging.service";
 export class BestInSlotManagerComponent {
   selectedSpecialization: number | undefined;
   specializations: Array<SpecializationResponse> = [];
+  classes: Array<PlayableClassResponse> = [];
   loadingPage: boolean = true;
   itemsIds: string = '';
   loadingSpecialization: boolean = false;
   bis?: BestInSlotsResponse;
-
+  selectedClass: number| undefined;
 
   constructor(private apiService: ApiService, private messagingService: MessagingService) {
-    this.apiService.getSpecializations().subscribe({
-      next: (response: SpecializationsResponse) => {
-        this.specializations = response.specializations.sort((a, b) =>
+    this.apiService.getPlayableClasses().subscribe({
+      next: (response: PlayableClassesResponse) => {
+        this.classes = response.classes.sort((a, b) =>
           a.name.localeCompare(b.name)
         );
         this.loadingPage = false;
       }, error: (error) => {
-        console.error('Error fetching specializations', error);
+        console.error('Error fetching classes', error);
         this.loadingPage = false;
+      }
+    });
+  }
+
+  onClassChange($event: MatSelectChange) {
+    this.loadingSpecialization = true;
+    this.apiService.getPlayableClassesById($event.value).subscribe({
+      next: (response: PlayableClassResponse) => {
+        this.specializations = response.specializations.sort((a, b) => a.name.localeCompare(b.name));
+        this.loadingSpecialization = false;
+      }, error: (error) => {
+        console.error('Error fetching specializations', error);
+        this.loadingSpecialization = false;
       }
     });
   }

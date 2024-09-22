@@ -12,13 +12,23 @@
     } @else {
       <div>
         <mat-form-field>
-          <mat-label>Specialization</mat-label>
-          <mat-select [(ngModel)]="selectedSpecialization" name="specialization" (selectionChange)="onSpecializationChange($event)">
-            @for (specialization of specializations; track specialization.id) {
-              <mat-option [value]="specialization.id">{{ specialization.name }}</mat-option>
+          <mat-label>Class</mat-label>
+          <mat-select [(ngModel)]="selectedClass" name="class" (selectionChange)="onClassChange($event)">
+            @for (class of classes; track class.id) {
+              <mat-option [value]="class.id">{{ class.name }}</mat-option>
             }
           </mat-select>
         </mat-form-field>
+        @if(selectedClass && specializations && !this.loadingSpecialization) {
+          <mat-form-field style="margin-left: 1em">
+            <mat-label>Specialization</mat-label>
+            <mat-select [(ngModel)]="selectedSpecialization" name="specialization" (selectionChange)="onSpecializationChange($event)">
+              @for (specialization of specializations; track specialization.id) {
+                <mat-option [value]="specialization.id">{{ specialization.name }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        }
 
       </div>
       @if (loadingSpecialization) {

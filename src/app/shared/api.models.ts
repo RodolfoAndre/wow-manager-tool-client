@@ -59,3 +59,18 @@ export interface BestsInSlotsRequest {
   specId: number;
   bestInSlotsIds: Array<number>;
 }
+
+export interface PlayableClassesResponse {
+  classes: PlayableClassResponse[];
+}
+
+export interface PlayableClassResponse {
+  id: number;
+  name: string;
+  specializations: Array<SpecResponse>;
+}
+
+export interface SpecResponse {
+  id: number;
+  name: string;
+}

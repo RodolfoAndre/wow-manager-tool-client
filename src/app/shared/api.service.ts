@@ -7,7 +7,7 @@ import {
   BestInSlotResponse,
   BestInSlotsResponse, BestsInSlotsRequest,
   EquipmentListResponse,
-  MountsDropResponse,
+  MountsDropResponse, PlayableClassesResponse, PlayableClassResponse,
   SpecializationsResponse
 } from "./api.models";
 
@@ -73,5 +73,13 @@ export class ApiService {
 
   saveSpecializationBis(request: BestsInSlotsRequest) {
     return this.httpClient.post(`${this.API_URL}/best-in-slot`, request);
+  }
+
+  getPlayableClasses() {
+    return this.httpClient.get<PlayableClassesResponse>(`${this.API_URL}/data/classes`);
+  }
+
+  getPlayableClassesById(id: number) {
+    return this.httpClient.get<PlayableClassResponse>(`${this.API_URL}/data/classes/${id}`);
   }
 }
