@@ -1,9 +1,11 @@
 import {Injectable} from "@angular/core";
+import {ComponentType} from "@angular/cdk/portal";
 import {ConfirmAddNewCharacterEvents, ConfirmDialogEvents} from "./confirm-dialog/confirm-dialog.models";
 import {ConfirmDialogComponent} from "./confirm-dialog/confirm-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {AddNewCharacterDialogComponent} from "./add-new-character-dialog/add-new-character-dialog.component";
 import {AddNewCharacterModel} from "./add-new-character-dialog/add-new-character-dialog.models";
+import {EquipmentResponse} from "../api.models";
 
 @Injectable({
   providedIn: 'root'
@@ -35,5 +37,10 @@ export class DialogService {
         events.cancel?.();
       }
     });
+  }
+
+  openDialog(component: ComponentType<unknown>, onClose: (response: any) => void) {
+    const dialogRef = this.dialog.open(component);
+    dialogRef.afterClosed().subscribe(onClose);
   }
 }

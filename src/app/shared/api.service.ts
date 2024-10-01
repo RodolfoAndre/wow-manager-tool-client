@@ -7,7 +7,7 @@ import {
   BestInSlotResponse,
   BestInSlotsResponse, BestsInSlotsRequest,
   EquipmentListResponse,
-  MountsDropResponse, PlayableClassesResponse, PlayableClassResponse,
+  MountsDropResponse, PlayableClassesResponse, PlayableClassResponse, SearchRequest,
   SpecializationsResponse
 } from "./api.models";
 
@@ -81,5 +81,9 @@ export class ApiService {
 
   getPlayableClassesById(id: number) {
     return this.httpClient.get<PlayableClassResponse>(`${this.API_URL}/data/classes/${id}`);
+  }
+
+  searchItem(search: SearchRequest) {
+    return this.httpClient.post<EquipmentListResponse>(`${this.API_URL}/gear/search`, search);
   }
 }

@@ -10,7 +10,7 @@ export class EquipmentTableEntry {
   bestInSlotBossName?: string;
   blizzardId?: number;
 
-  static build(equipment: EquipmentResponse): EquipmentTableEntry {
+  static from(equipment: EquipmentResponse): EquipmentTableEntry {
     let bestInSlot: EquipmentResponse | undefined = undefined;
     if (equipment.bisEquipments.length > 0) {
       let foundBisEquipment = equipment.bisEquipments.find(bisEquipment => bisEquipment.blizzardId === equipment.blizzardId);

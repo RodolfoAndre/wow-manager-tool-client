@@ -74,3 +74,8 @@ export interface SpecResponse {
   id: number;
   name: string;
 }
+
+export interface SearchRequest {
+  searchOption: string | undefined;
+  value: string | undefined;
+}
