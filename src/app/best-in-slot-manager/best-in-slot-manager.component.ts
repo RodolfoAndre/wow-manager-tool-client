@@ -31,18 +31,19 @@ import {
 import {MatOption} from "@angular/material/autocomplete";
 import {ApiService} from "../shared/api.service";
 import {MatInput} from "@angular/material/input";
-import {MatFabAnchor, MatFabButton} from "@angular/material/button";
+import {MatButton, MatFabAnchor, MatFabButton, MatMiniFabButton} from "@angular/material/button";
 import {MessagingService} from "../shared/messaging.service";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
 import {RouterLink} from "@angular/router";
 import {DialogService} from "../shared/dialog/dialog.service";
 import {AddBestInSlotDialogComponent} from "../add-best-in-slot-dialog/add-best-in-slot-dialog.component";
 import {EquipmentSearchTableEntry} from "../add-best-in-slot-dialog/add-best-in-slot-dialog.models";
+import {MatCheckbox} from "@angular/material/checkbox";
 
 @Component({
   selector: 'app-best-in-slot-manager',
   standalone: true,
-  imports: [MatCard, MatCardContent, MatCell, MatCellDef, MatColumnDef, MatHeaderCell, MatHeaderRow, MatHeaderRowDef, MatIcon, MatProgressSpinner, MatRow, MatRowDef, MatSort, MatSortHeader, MatTable, MatToolbar, NgClass, NgIf, MatFormField, MatSelect, MatOption, MatLabel, FormsModule, MatInput, MatFabButton, MatTabGroup, MatTab, MatHeaderCellDef, MatTableModule, MatSortModule, MatFabAnchor, RouterLink],
+  imports: [MatCard, MatCardContent, MatCell, MatCellDef, MatColumnDef, MatHeaderCell, MatHeaderRow, MatHeaderRowDef, MatIcon, MatProgressSpinner, MatRow, MatRowDef, MatSort, MatSortHeader, MatTable, MatToolbar, NgClass, NgIf, MatFormField, MatSelect, MatOption, MatLabel, FormsModule, MatInput, MatFabButton, MatTabGroup, MatTab, MatHeaderCellDef, MatTableModule, MatSortModule, MatFabAnchor, RouterLink, MatCheckbox, MatButton, MatMiniFabButton],
   templateUrl: './best-in-slot-manager.component.html',
   styleUrl: './best-in-slot-manager.component.scss'
 })
@@ -58,7 +59,7 @@ export class BestInSlotManagerComponent {
   bis?: BestInSlotsResponse;
   selectedClass: number | undefined;
   savingBis: boolean = false;
-  displayedColumns: string[] = ['slotType', 'name', 'instanceName', 'bossName'];
+  displayedColumns: string[] = ['slotType', 'name', 'instanceName', 'bossName', 'action'];
   equipments: BestInSlotResponse[] = [];
   dataSource: MatTableDataSource<BestInSlotResponse> = new MatTableDataSource(this.equipments);
 
@@ -90,9 +91,14 @@ export class BestInSlotManagerComponent {
     });
   }
 
-  onSpecializationChange($event: MatSelectChange) {
+  onSpecializationChange(selectedSpecialization: number | undefined) {
+    if (selectedSpecialization === undefined) {
+      this.messagingService.showMessage("Specialization not provided");
+      return;
+    }
+
     this.loadingSpecialization = true;
-    this.apiService.getBestInSlots($event.value).subscribe({
+    this.apiService.getBestInSlots(selectedSpecialization).subscribe({
       next: (response: BestInSlotsResponse) => {
         this.bis = response;
         this.loadingSpecialization = false;
@@ -122,6 +128,7 @@ export class BestInSlotManagerComponent {
         next: () => {
           this.savingBis = false;
           this.messagingService.showMessage("Bests in slots updated");
+          this.onSpecializationChange(this.selectedSpecialization);
         },
         error: (error) => {
           this.savingBis = true;
@@ -132,10 +139,8 @@ export class BestInSlotManagerComponent {
   }
 
   private getItemsIdsArray(): number[] {
-    return this.itemsIds
-      .split(',')
-      .map(id => parseInt(id, 10))
-      .filter(id => !isNaN(id));
+    return this.equipments
+      .map(equipment => equipment.blizzardId);
   }
 
   openAddBisDialog() {
@@ -152,5 +157,13 @@ export class BestInSlotManagerComponent {
       this.dataSource.data = this.equipments;
     }
     this.dialogService.openDialog(AddBestInSlotDialogComponent, onClose);
+  }
+
+  delete(element: BestInSlotResponse) {
+    const index = this.equipments.indexOf(element);
+    if (index >= 0) {
+      this.equipments.splice(index, 1);
+      this.dataSource.data = this.equipments;
+    }
   }
 }

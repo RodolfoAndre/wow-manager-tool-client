@@ -23,7 +23,7 @@
           <mat-form-field style="margin-left: 1em">
             <mat-label>Specialization</mat-label>
             <mat-select [(ngModel)]="selectedSpecialization" name="specialization"
-                        (selectionChange)="onSpecializationChange($event)">
+                        (selectionChange)="onSpecializationChange(selectedSpecialization)">
               @for (specialization of specializations; track specialization.id) {
                 <mat-option [value]="specialization.id">{{ specialization.name }}</mat-option>
               }
@@ -44,11 +44,10 @@
         </div>
       }
 
-      <table [hidden] ="!selectedSpecialization || !bis || !bis.bestInSlots.length"
+      <table [hidden] ="!selectedSpecialization || !equipments"
              mat-table
              [dataSource]="dataSource"
-             matSort
-      >
+             matSort>
 
         <ng-container matColumnDef="slotType">
           <th
@@ -94,14 +93,20 @@
           </th>
           <td mat-cell *matCellDef="let element">{{element.bossName || "Not provided"}}</td>
         </ng-container>
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element"> <button mat-button (click)="delete(element)"><mat-icon>delete</mat-icon></button></td>
+        </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns; let element" [ngClass]="row.isBestInSlot ? 'success-background-color' : row.isBestInSlot != undefined ? 'error-background-color' : ''"></tr>
       </table>
 
-      <button [disabled]="savingBis" mat-fab extended (click)="onSave()">
-        <mat-icon>save</mat-icon>
-        Save
-      </button>
+      @if (selectedSpecialization) {
+        <button [disabled]="savingBis" mat-fab extended (click)="onSave()" style="float: right; margin: 2em;">
+          <mat-icon>save</mat-icon>
+          Save
+        </button>
+      }
     }
   </mat-card-content>
 </mat-card>

@@ -52,7 +52,7 @@ export class AddBestInSlotDialogComponent {
   constructor(private dialogRef: MatDialogRef<AddBestInSlotDialogComponent>, private apiService: ApiService, private messagingService: MessagingService) {
   }
 
-  onSave() {
+  onAdd() {
     this.dialogRef.close(this.searchResult
       .filter(equipment => equipment.isSelected));
   }
@@ -98,6 +98,6 @@ export class AddBestInSlotDialogComponent {
   }
 
   onCancel() {
-
+    this.dialogRef.close();
   }
 }
