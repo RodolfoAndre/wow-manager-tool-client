@@ -1,12 +1,12 @@
 import {MediaMatcher} from '@angular/cdk/layout';
-import {ChangeDetectorRef, Component, inject, OnDestroy} from '@angular/core';
+import {ChangeDetectorRef, Component, Inject, inject, OnDestroy, OnInit, PLATFORM_ID} from '@angular/core';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatListModule} from '@angular/material/list';
 import {MatButtonModule} from '@angular/material/button';
 import {SidenavComponent} from './shared/sidenav/sidenav.component';
-import {CommonModule} from "@angular/common";
+import {CommonModule, isPlatformBrowser} from "@angular/common";
 import {RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
 import {ApiService} from './shared/api.service';
 import {Character} from "./shared/character/character.models";

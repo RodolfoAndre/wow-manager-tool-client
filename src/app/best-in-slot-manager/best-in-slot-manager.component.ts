@@ -4,13 +4,15 @@ import {
   MatCell,
   MatCellDef,
   MatColumnDef,
-  MatHeaderCell, MatHeaderCellDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
   MatHeaderRow,
   MatHeaderRowDef,
   MatRow,
   MatRowDef,
   MatTable,
-  MatTableDataSource, MatTableModule
+  MatTableDataSource,
+  MatTableModule
 } from "@angular/material/table";
 import {MatIcon} from "@angular/material/icon";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
@@ -23,7 +25,7 @@ import {FormsModule} from "@angular/forms";
 import {
   BestInSlotResponse,
   BestInSlotsResponse,
-  BestsInSlotsRequest, EquipmentResponse,
+  BestsInSlotsRequest,
   PlayableClassesResponse,
   PlayableClassResponse,
   SpecializationResponse

@@ -86,6 +86,7 @@ export class MountDropComponent {
       this.chartService.buildChart(mount);
       this.isRender[i] = true;
     }
+    return true;
   }
 
   openItem(index: number) {

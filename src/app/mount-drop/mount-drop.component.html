@@ -42,10 +42,9 @@
                     <span title="Next chance of drop">{{twoDecimals(mount.nextDropRate * 100)}}%</span>
                   </mat-panel-description>
                 </mat-expansion-panel-header>
-                @if (panelState && panelState[idx]) {
+                @if (panelState && panelState[idx] && startChart(idx, mount)) {
                   <div>
                     <canvas id="{{getChartId(mount.name)}}" width="400px" height="400px"></canvas>
-                    {{ startChart(idx, mount) }}
                   </div>
                 }
               </mat-expansion-panel>

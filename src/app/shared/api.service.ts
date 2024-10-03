@@ -4,10 +4,13 @@ import {Character} from "./character/character.models";
 import {ReputationListResponse} from "../reputation/reputation.models";
 import {MountListResponse} from "../mount/mount.model";
 import {
-  BestInSlotResponse,
-  BestInSlotsResponse, BestsInSlotsRequest,
+  BestInSlotsResponse,
+  BestsInSlotsRequest,
   EquipmentListResponse,
-  MountsDropResponse, PlayableClassesResponse, PlayableClassResponse, SearchRequest,
+  MountsDropResponse,
+  PlayableClassesResponse,
+  PlayableClassResponse,
+  SearchRequest,
   SpecializationsResponse
 } from "./api.models";
 

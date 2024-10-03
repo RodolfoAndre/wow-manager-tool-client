@@ -10,7 +10,7 @@ import {MatToolbar} from "@angular/material/toolbar";
 import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
 import {TitleCasePipe} from "@angular/common";
 import {MatSelect} from "@angular/material/select";
-import {EquipmentListResponse, EquipmentResponse, SearchRequest} from "../shared/api.models";
+import {EquipmentListResponse, SearchRequest} from "../shared/api.models";
 import {MatOption} from "@angular/material/autocomplete";
 import {ApiService} from "../shared/api.service";
 import {MessagingService} from "../shared/messaging.service";
@@ -18,10 +18,14 @@ import {
   MatCell,
   MatCellDef,
   MatColumnDef,
-  MatHeaderCell, MatHeaderCellDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
   MatHeaderRow,
-  MatHeaderRowDef, MatRow, MatRowDef,
-  MatTable, MatTableDataSource
+  MatHeaderRowDef,
+  MatRow,
+  MatRowDef,
+  MatTable,
+  MatTableDataSource
 } from "@angular/material/table";
 import {MatSort, MatSortHeader} from "@angular/material/sort";
 import {MatCheckbox} from "@angular/material/checkbox";

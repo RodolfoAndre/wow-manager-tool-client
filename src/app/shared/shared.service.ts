@@ -1,6 +1,5 @@
 import {Injectable} from "@angular/core";
 import {Character} from "./character/character.models";
-import {ApiService} from "./api.service";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +12,7 @@ export class SharedService {
 
   private _updateCharacterCallback?: (character: Character) => void | undefined;
 
-  constructor(private apiService: ApiService) {
+  constructor() {
   }
 
   public setNavigationPath(path: (string | undefined)[]): void {

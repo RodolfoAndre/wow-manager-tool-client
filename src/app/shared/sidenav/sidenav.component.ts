@@ -26,7 +26,7 @@ export class SidenavComponent implements OnDestroy{
   rightPanelOpened: boolean = (this.rightNavItems == undefined || this.rightNavItems.length == 0);
   mobileQuery: MediaQueryList;
 
-  private _mobileQueryListener: () => void;
+  private readonly _mobileQueryListener: () => void;
 
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');

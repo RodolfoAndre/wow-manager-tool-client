@@ -1,4 +1,4 @@
-import {Component, Input, ViewChild, ViewContainerRef} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {MatListModule} from '@angular/material/list';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';

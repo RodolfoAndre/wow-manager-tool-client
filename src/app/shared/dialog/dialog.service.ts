@@ -5,7 +5,6 @@ import {ConfirmDialogComponent} from "./confirm-dialog/confirm-dialog.component"
 import {MatDialog} from "@angular/material/dialog";
 import {AddNewCharacterDialogComponent} from "./add-new-character-dialog/add-new-character-dialog.component";
 import {AddNewCharacterModel} from "./add-new-character-dialog/add-new-character-dialog.models";
-import {EquipmentResponse} from "../api.models";
 
 @Injectable({
   providedIn: 'root'
