@@ -11,3 +11,14 @@ mat-sidenav-is-mobile {
   height: 100%;
   width: 100%;
 }
+
+.fab-container {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 2;
+}
+
+.mat-fab-button {
+  position: relative;
+}

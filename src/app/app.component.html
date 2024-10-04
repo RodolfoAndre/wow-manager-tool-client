@@ -20,13 +20,6 @@
       </div>
     </div>
   </mat-toolbar>
-  <div style="position: relative">
-    <div class="mat-fab-button">
-      <a mat-fab (click)="onAddNewCharacterClick()">
-        <mat-icon>person_add</mat-icon>
-      </a>
-    </div>
-  </div>
   <side-nav-component #lnav [left-side-nav-items]="componentConfig.leftSideNavItems"
                       [right-side-nav-items]="componentConfig.rightSideNavItems" class="side-nav-component">
     <router-outlet></router-outlet>

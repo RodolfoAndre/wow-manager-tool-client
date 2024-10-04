@@ -9,6 +9,10 @@ import {CommonModule} from '@angular/common';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {ExpansionListComponent} from "../expansion-list/expansion.list.component";
 import {ExpansionItem} from "../expansion-list/expansion.list.models";
+import {DialogService} from "../dialog/dialog.service";
+import {ApiService} from "../api.service";
+import {MessagingService} from "../messaging.service";
+import {SharedService} from "../shared.service";
 
 /** @title Responsive sidenav */
 @Component({
@@ -28,7 +32,8 @@ export class SidenavComponent implements OnDestroy{
 
   private readonly _mobileQueryListener: () => void;
 
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private dialogService: DialogService,
+              private apiService: ApiService, private messagingService: MessagingService, private sharedService: SharedService) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -45,9 +50,20 @@ export class SidenavComponent implements OnDestroy{
   toggleRight() {
     this.rightPanelOpened = !this.rightPanelOpened;
   }
+
+  protected onAddNewCharacterClick() {
+    this.dialogService.openAddNewCharacterDialog({
+      confirm: (character) => {
+        this.apiService.createChar(character).subscribe({
+          next: () => {
+            this.messagingService.showMessage("Saved successfully");
+            this.sharedService.notifyCharactersUpdated();
+          },
+          error: err => {
+            this.messagingService.showError(err.error);
+          }
+        });
+      }
+    });
+  }
 }
-
-
-/**  Copyright 2018 Google Inc. All Rights Reserved.
- Use of this source code is governed by an MIT-style license that
- can be found in the LICENSE file at http://angular.io/license */

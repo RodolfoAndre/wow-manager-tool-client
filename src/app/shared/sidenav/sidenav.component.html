@@ -1,6 +1,7 @@
 <mat-sidenav-container>
   @if (leftNavItems.length > 0) {
-    <mat-sidenav [opened]="leftPanelOpened">
+    <mat-sidenav [mode]="mobileQuery.matches ? 'over' : 'side'"
+                 [fixedInViewport]="mobileQuery.matches" [opened]="leftPanelOpened">
       <expansion-list [expansion-items]="leftNavItems"></expansion-list>
     </mat-sidenav>
   }
@@ -8,8 +9,14 @@
     <ng-content></ng-content>
   </mat-sidenav-content>
   @if (rightNavItems.length > 0) {
-    <mat-sidenav position="end" [opened]="rightPanelOpened">
+    <mat-sidenav [mode]="mobileQuery.matches ? 'over' : 'side'" position="end"
+                 [fixedInViewport]="mobileQuery.matches" [opened]="rightPanelOpened">
       <expansion-list [expansion-items]="rightNavItems"></expansion-list>
+      <div class="fab-container">
+        <a mat-fab (click)="onAddNewCharacterClick()">
+          <mat-icon>person_add</mat-icon>
+        </a>
+      </div>
     </mat-sidenav>
   }
 </mat-sidenav-container>

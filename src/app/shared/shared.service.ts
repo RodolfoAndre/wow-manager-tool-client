@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Character} from "./character/character.models";
+import {Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,15 @@ export class SharedService {
 
   private _updateCharacterCallback?: (character: Character) => void | undefined;
 
+  private charactersUpdatedSource = new Subject<void>();
+
+  charactersUpdated$ = this.charactersUpdatedSource.asObservable();
+
+
   constructor() {
+  }
+  notifyCharactersUpdated() {
+    this.charactersUpdatedSource.next();
   }
 
   public setNavigationPath(path: (string | undefined)[]): void {

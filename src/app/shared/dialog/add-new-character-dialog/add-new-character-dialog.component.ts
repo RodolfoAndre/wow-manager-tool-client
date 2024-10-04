@@ -58,6 +58,7 @@ export class AddNewCharacterDialogComponent {
   }
 
   protected save(character : Character) {
+    character.server = character.server.toUpperCase();
     this.dialogRef.close(character);
   }
 

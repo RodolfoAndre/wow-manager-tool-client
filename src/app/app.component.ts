@@ -43,6 +43,9 @@ export class AppComponent implements OnDestroy {
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
     this.getCharacters();
+    this.sharedService.charactersUpdated$.subscribe(() => {
+      this.getCharacters();
+    });
   }
 
   ngOnDestroy(): void {
@@ -164,21 +167,5 @@ export class AppComponent implements OnDestroy {
       return sideNavBar[serverIndex];
     }
     return undefined;
-  }
-
-  protected onAddNewCharacterClick() {
-    this.dialogService.openAddNewCharacterDialog({
-      confirm: (character) => {
-        this.apiService.createChar(character).subscribe({
-          next: () => {
-            this.messagingService.showMessage("Saved successfully");
-            this.getCharacters();
-          },
-          error: err => {
-            this.messagingService.showError(err.error);
-          }
-        });
-      }
-    });
   }
 }
