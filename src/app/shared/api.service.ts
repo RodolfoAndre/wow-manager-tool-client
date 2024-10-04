@@ -19,7 +19,7 @@ import {
 })
 export class ApiService {
 
-  private API_URL: string = "http://localhost:8080";
+  private API_URL: string = "https://api.wow-manager-tool.com";
 
   private RENDER_URL: string = 'https://render-us.worldofwarcraft.com/icons';
 

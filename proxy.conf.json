@@ -1,0 +1,8 @@
+{
+  "/api": {
+    "target": "https://api.wow-manager-tool.com",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}
