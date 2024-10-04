@@ -1,7 +1,6 @@
-<mat-sidenav-container [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+<mat-sidenav-container>
   @if (leftNavItems.length > 0) {
-    <mat-sidenav [mode]="mobileQuery.matches ? 'over' : 'side'"
-                 [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" [opened]="leftPanelOpened">
+    <mat-sidenav [opened]="leftPanelOpened">
       <expansion-list [expansion-items]="leftNavItems"></expansion-list>
     </mat-sidenav>
   }
@@ -9,8 +8,7 @@
     <ng-content></ng-content>
   </mat-sidenav-content>
   @if (rightNavItems.length > 0) {
-    <mat-sidenav [mode]="mobileQuery.matches ? 'over' : 'side'" position="end"
-                 [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" [opened]="rightPanelOpened">
+    <mat-sidenav position="end" [opened]="rightPanelOpened">
       <expansion-list [expansion-items]="rightNavItems"></expansion-list>
     </mat-sidenav>
   }
