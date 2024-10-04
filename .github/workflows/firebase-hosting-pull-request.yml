@@ -18,11 +18,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Step 2: Set up Node.js (selecione a versão apropriada)
+      # Step 2: Set up Node.js (especificar a versão 18.19 ou superior)
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '16'  # ou a versão do Node.js que você está utilizando
+          node-version: '18.19'  # Ou mais recente
 
       # Step 3: Install dependencies
       - name: Install dependencies
