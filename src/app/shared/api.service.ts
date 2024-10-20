@@ -27,19 +27,19 @@ export class ApiService {
   }
 
   getCharacters() {
-    return this.httpClient.get<Array<Character>>(`${this.API_URL}/char`);
+    return this.httpClient.get<Array<Character>>(`${this.API_URL}/character`);
   }
 
   getCharacterById(id: number) {
-    return this.httpClient.get<Character>(`${this.API_URL}/char/${id}`);
+    return this.httpClient.get<Character>(`${this.API_URL}/character/${id}`);
   }
 
   createChar(char: Character) {
-    return this.httpClient.post<void>(`${this.API_URL}/char`, char);
+    return this.httpClient.post<void>(`${this.API_URL}/character`, char);
   }
 
   deleteCharacter(id: number) {
-    return this.httpClient.delete<void>(`${this.API_URL}/char/${id}`);
+    return this.httpClient.delete<void>(`${this.API_URL}/character/${id}`);
   }
 
   getMountsDrop(id: number) {
@@ -54,8 +54,12 @@ export class ApiService {
     return this.httpClient.get<ReputationListResponse>(`${this.API_URL}/reputation/list/${id}`);
   }
 
-  getEquipmentList(id: number, retrieveBis: boolean) {
-    return this.httpClient.get<EquipmentListResponse>(`${this.API_URL}/gear/${id}?retrieveBis=${retrieveBis}`);
+  getEquipmentListWithBis(id: number, specId: number) {
+    return this.httpClient.get<EquipmentListResponse>(`${this.API_URL}/equipment/${id}/${specId}`);
+  }
+
+  getEquipmentList(id: number) {
+    return this.httpClient.get<EquipmentListResponse>(`${this.API_URL}/equipment/${id}`);
   }
 
   getServers() {
@@ -87,6 +91,6 @@ export class ApiService {
   }
 
   searchItem(search: SearchRequest) {
-    return this.httpClient.post<EquipmentListResponse>(`${this.API_URL}/gear/search`, search);
+    return this.httpClient.post<EquipmentListResponse>(`${this.API_URL}/equipment/search`, search);
   }
 }

@@ -7,13 +7,23 @@
     </div>
   </mat-toolbar>
   <mat-card-content>
-    @if (!hasCharacterLoaded) {
+    @if (!hasCharacterLoaded || loadingSpecialization) {
       <div class="ct-center ct-flex-column">
-        <mat-spinner color="primary" style="align-self: center"></mat-spinner>
+        <mat-spinner color="primary" style="align-self: center; margin: 1em"></mat-spinner>
       </div>
+    } @else {
+      <mat-form-field style="margin: 1em 0">
+        <mat-label>Specialization</mat-label>
+        <mat-select [(ngModel)]="selectedSpecialization" name="specialization"
+                    (selectionChange)="onSpecializationChange()">
+          @for (specialization of specializations; track specialization.id) {
+            <mat-option [value]="specialization.id">{{ specialization.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
     }
 
-    <table [hidden] ="!hasCharacterLoaded"
+    <table [hidden] ="!hasCharacterLoaded || loadingSpecialization"
             mat-table
             [dataSource]="dataSource"
             matSort

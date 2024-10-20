@@ -11,11 +11,14 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {MatIcon} from "@angular/material/icon";
 import {Character} from "../shared/character/character.models";
 import {MessagingService} from "../shared/messaging.service";
+import {MatFormField, MatLabel, MatOption, MatSelect, MatSelectChange} from "@angular/material/select";
+import {PlayableClassResponse, SpecResponse} from "../shared/api.models";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-equipment',
   standalone: true,
-  imports: [CommonModule, MatCard, MatToolbar, MatCardContent, MatProgressSpinner, MatIcon, MatTableModule, MatSortModule],
+  imports: [CommonModule, MatCard, MatToolbar, MatCardContent, MatProgressSpinner, MatIcon, MatTableModule, MatSortModule, MatFormField, MatLabel, MatOption, MatSelect, FormsModule ],
   templateUrl: './equipment.component.html',
   styleUrl: './equipment.component.scss'
 })
@@ -28,6 +31,9 @@ export class EquipmentComponent {
   selectedChar: Character | undefined;
   getItemLevelColor = SharedService.getItemLevelColor;
   getClassColor = SharedService.getClassColor;
+  protected specializations: Array<SpecResponse> | undefined;
+  protected loadingSpecialization: boolean = false;
+  protected selectedSpecialization: number = 0;
 
   constructor(private apiService: ApiService, private messagingService: MessagingService) {
 
@@ -39,33 +45,52 @@ export class EquipmentComponent {
     this.apiService.getCharacterById(id).subscribe({
       next: character => {
         this.selectedChar = character;
+        this.hasCharacterLoaded = true;
       },
       error: err => {
         this.messagingService.showError(err);
+        this.hasCharacterLoaded = true;
       }
     });
-    this.apiService.getEquipmentList(id, true).subscribe( {
-      next: equipmentResponse => {
-        let equipmentTableEntries: Array<EquipmentTableEntry> = equipmentResponse.equipments
-          .filter(equipmentResponse => equipmentResponse.slotType.indexOf("1") <= 0 && equipmentResponse.slotType.indexOf("2") <= 0)
-          .map(equipment => EquipmentTableEntry.from(equipment));
 
-        equipmentTableEntries = equipmentTableEntries.concat(EquipmentTableEntry.buildForSameSlotType(
-          equipmentResponse.equipments
+    this.loadingSpecialization = true;
+    if (this.selectedChar?.classId) {
+      this.loadingSpecialization = true;
+      this.apiService.getPlayableClassesById(this.selectedChar.classId).subscribe({
+        next: (response: PlayableClassResponse) => {
+          this.specializations = response.specializations.sort((a, b) => a.name.localeCompare(b.name));
+          this.loadingSpecialization = false;
+        }, error: (error) => {
+          console.error('Error fetching specializations', error);
+          this.loadingSpecialization = false;
+        }
+      });
+    }
+  }
+
+  onSpecializationChange() {
+    if (this.selectedChar && this.selectedChar.id) {
+      this.loadingSpecialization = true;
+      this.apiService.getEquipmentListWithBis(this.selectedChar.id, this.selectedSpecialization).subscribe({
+        next: equipmentResponse => {
+          let equipmentTableEntries: Array<EquipmentTableEntry> = equipmentResponse.equipments
+            .filter(equipmentResponse => equipmentResponse.slotType.indexOf("1") <= 0 && equipmentResponse.slotType.indexOf("2") <= 0)
+            .map(equipment => EquipmentTableEntry.from(equipment));
+
+          equipmentTableEntries = equipmentTableEntries.concat(EquipmentTableEntry.buildForSameSlotType(equipmentResponse.equipments
             .filter(equipmentResponse => equipmentResponse.slotType.indexOf("TRINKET") >= 0)));
 
-        equipmentTableEntries = equipmentTableEntries.concat(EquipmentTableEntry.buildForSameSlotType(
-          equipmentResponse.equipments
+          equipmentTableEntries = equipmentTableEntries.concat(EquipmentTableEntry.buildForSameSlotType(equipmentResponse.equipments
             .filter(equipmentResponse => equipmentResponse.slotType.indexOf("FINGER") >= 0)));
 
-        this.dataSource = new MatTableDataSource(equipmentTableEntries);
-        this.dataSource.sort = this.sort;
-        this.hasCharacterLoaded = true;
-      },
-      error: err => {
-        this.messagingService.showError(err);
-        this.hasCharacterLoaded = true;
-      }
-    });
+          this.dataSource = new MatTableDataSource(equipmentTableEntries);
+          this.dataSource.sort = this.sort;
+          this.loadingSpecialization = false;
+        }, error: err => {
+          this.messagingService.showError(err);
+          this.loadingSpecialization = false;
+        }
+      });
+    }
   }
 }

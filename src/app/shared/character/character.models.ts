@@ -3,4 +3,5 @@ export interface Character {
   name: string;
   server: string;
   classId?: number;
+  specId?: number;
 }
