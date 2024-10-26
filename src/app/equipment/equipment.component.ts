@@ -11,7 +11,7 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {MatIcon} from "@angular/material/icon";
 import {Character} from "../shared/character/character.models";
 import {MessagingService} from "../shared/messaging.service";
-import {MatFormField, MatLabel, MatOption, MatSelect, MatSelectChange} from "@angular/material/select";
+import {MatFormField, MatLabel, MatOption, MatSelect} from "@angular/material/select";
 import {PlayableClassResponse, SpecResponse} from "../shared/api.models";
 import {FormsModule} from "@angular/forms";
 
@@ -40,32 +40,32 @@ export class EquipmentComponent {
   }
 
   @Input()
-  set id(id: number) {
+  set id(id: string) {
     this.hasCharacterLoaded = false;
     this.apiService.getCharacterById(id).subscribe({
       next: character => {
         this.selectedChar = character;
         this.hasCharacterLoaded = true;
+
+        this.loadingSpecialization = true;
+        if (this.selectedChar?.classId) {
+          this.loadingSpecialization = true;
+          this.apiService.getPlayableClassesById(this.selectedChar.classId).subscribe({
+            next: (response: PlayableClassResponse) => {
+              this.specializations = response.specializations.sort((a, b) => a.name.localeCompare(b.name));
+              this.loadingSpecialization = false;
+            }, error: (error) => {
+              console.error('Error fetching specializations', error);
+              this.loadingSpecialization = false;
+            }
+          });
+        }
       },
       error: err => {
         this.messagingService.showError(err);
         this.hasCharacterLoaded = true;
       }
     });
-
-    this.loadingSpecialization = true;
-    if (this.selectedChar?.classId) {
-      this.loadingSpecialization = true;
-      this.apiService.getPlayableClassesById(this.selectedChar.classId).subscribe({
-        next: (response: PlayableClassResponse) => {
-          this.specializations = response.specializations.sort((a, b) => a.name.localeCompare(b.name));
-          this.loadingSpecialization = false;
-        }, error: (error) => {
-          console.error('Error fetching specializations', error);
-          this.loadingSpecialization = false;
-        }
-      });
-    }
   }
 
   onSpecializationChange() {

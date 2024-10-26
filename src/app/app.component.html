@@ -12,11 +12,9 @@
         <h1 class="main-sidenav-app-name">{{ componentConfig.title }}</h1>
       </div>
       <div>
-        @if (componentConfig.rightSideNavItems.length > 0) {
-          <button *ngIf="componentConfig.rightSideNavItems.length > 0" mat-icon-button (click)="lnav.toggleRight()">
-            <mat-icon class="no-padding no-margin">group</mat-icon>
-          </button>
-        }
+        <button mat-icon-button (click)="lnav.toggleRight()">
+          <mat-icon class="no-padding no-margin">group</mat-icon>
+        </button>
       </div>
     </div>
   </mat-toolbar>

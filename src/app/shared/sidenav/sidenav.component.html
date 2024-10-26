@@ -8,7 +8,6 @@
   <mat-sidenav-content>
     <ng-content></ng-content>
   </mat-sidenav-content>
-  @if (rightNavItems.length > 0) {
     <mat-sidenav [mode]="mobileQuery.matches ? 'over' : 'side'" position="end"
                  [fixedInViewport]="mobileQuery.matches" [opened]="rightPanelOpened">
       <expansion-list [expansion-items]="rightNavItems"></expansion-list>
@@ -18,5 +17,4 @@
         </a>
       </div>
     </mat-sidenav>
-  }
 </mat-sidenav-container>

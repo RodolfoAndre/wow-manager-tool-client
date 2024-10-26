@@ -37,7 +37,7 @@ export class ReputationComponent {
   }
 
   @Input()
-  set id(id: number) {
+  set id(id: string) {
     this.hasCharacterLoaded = false;
     this.apiService.getCharacterById(id).subscribe({
       next: (character) => {

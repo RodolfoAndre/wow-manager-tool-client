@@ -30,7 +30,7 @@ export class ApiService {
     return this.httpClient.get<Array<Character>>(`${this.API_URL}/character`);
   }
 
-  getCharacterById(id: number) {
+  getCharacterById(id: string) {
     return this.httpClient.get<Character>(`${this.API_URL}/character/${id}`);
   }
 
@@ -38,23 +38,23 @@ export class ApiService {
     return this.httpClient.post<void>(`${this.API_URL}/character`, char);
   }
 
-  deleteCharacter(id: number) {
+  deleteCharacter(id: string) {
     return this.httpClient.delete<void>(`${this.API_URL}/character/${id}`);
   }
 
-  getMountsDrop(id: number) {
+  getMountsDrop(id: string) {
     return this.httpClient.get<MountsDropResponse>(`${this.API_URL}/mount/drop/${id}`);
   }
 
-  getMountList(id: number) {
+  getMountList(id: string) {
     return this.httpClient.get<MountListResponse>(`${this.API_URL}/mount/list/${id}`);
   }
 
-  getReputationList(id: number) {
+  getReputationList(id: string) {
     return this.httpClient.get<ReputationListResponse>(`${this.API_URL}/reputation/list/${id}`);
   }
 
-  getEquipmentListWithBis(id: number, specId: number) {
+  getEquipmentListWithBis(id: string, specId: number) {
     return this.httpClient.get<EquipmentListResponse>(`${this.API_URL}/equipment/${id}/${specId}`);
   }
 
@@ -75,7 +75,7 @@ export class ApiService {
   }
 
   getBestInSlots(id: number) {
-    return this.httpClient.get<BestInSlotsResponse>(`${this.API_URL}/best-in-slot/${id}`);
+    return this.httpClient.get<BestInSlotsResponse>(`${this.API_URL}/best-in-slot/spec/${id}`);
   }
 
   saveSpecializationBis(request: BestsInSlotsRequest) {
