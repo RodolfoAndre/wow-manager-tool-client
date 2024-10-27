@@ -81,6 +81,7 @@ export class BestInSlotManagerComponent {
 
   onClassChange($event: MatSelectChange) {
     this.loadingSpecialization = true;
+    this.equipments.length = 0;
     this.selectedSpecialization = undefined;
     this.apiService.getPlayableClassesById($event.value).subscribe({
       next: (response: PlayableClassResponse) => {
@@ -94,6 +95,7 @@ export class BestInSlotManagerComponent {
   }
 
   onSpecializationChange(selectedSpecialization: number | undefined) {
+    this.equipments.length = 0;
     if (selectedSpecialization === undefined) {
       this.messagingService.showMessage("Specialization not provided");
       return;
@@ -118,6 +120,7 @@ export class BestInSlotManagerComponent {
   }
 
   onSave() {
+    this.equipments.length = 0;
     if (this.selectedSpecialization) {
       let request : BestsInSlotsRequest = {
         id: this.bis?.id,

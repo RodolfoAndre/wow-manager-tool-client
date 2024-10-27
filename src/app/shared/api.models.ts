@@ -49,13 +49,13 @@ export interface BestInSlotResponse {
 }
 
 export interface BestInSlotsResponse {
-  id: number;
+  id: string;
   specId: number;
   bestInSlots: Array<BestInSlotResponse>;
 }
 
 export interface BestsInSlotsRequest {
-  id: number | undefined;
+  id: string | undefined;
   specId: number;
   bestInSlotsIds: Array<number>;
 }
