@@ -120,7 +120,6 @@ export class BestInSlotManagerComponent {
   }
 
   onSave() {
-    this.equipments.length = 0;
     if (this.selectedSpecialization) {
       let request : BestsInSlotsRequest = {
         id: this.bis?.id,
@@ -141,6 +140,7 @@ export class BestInSlotManagerComponent {
         }
       });
     }
+    this.equipments.length = 0;
   }
 
   private getItemsIdsArray(): number[] {

@@ -64,7 +64,7 @@ export class AddBestInSlotDialogComponent {
   onSearch() {
 
     if (this.selectedOption && this.selectedOption == "html") {
-      this.selectedOption = "ID";
+      this.selectedOption = "id";
       this.inputValue = this.getIdsFromHtmlTable(this.inputValue);
     }
     let searchRequest: SearchRequest = {
