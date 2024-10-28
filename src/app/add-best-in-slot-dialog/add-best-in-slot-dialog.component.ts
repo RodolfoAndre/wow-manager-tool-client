@@ -62,6 +62,11 @@ export class AddBestInSlotDialogComponent {
   }
 
   onSearch() {
+
+    if (this.selectedOption && this.selectedOption == "html") {
+      this.selectedOption = "ID";
+      this.inputValue = this.getIdsFromHtmlTable(this.inputValue);
+    }
     let searchRequest: SearchRequest = {
       searchOption: this.selectedOption?.toUpperCase(), value: this.inputValue
     }
@@ -99,6 +104,23 @@ export class AddBestInSlotDialogComponent {
         this.loadingResults = false;
       }
     });
+  }
+
+  getIdsFromHtmlTable(tableHtml: string | undefined) {
+    if (tableHtml == undefined) {
+      return "";
+    }
+
+    let ids: string[] = [];
+
+    const pattern = /item=(\d+)/g;
+    let match: RegExpExecArray | null;
+
+    while ((match = pattern.exec(tableHtml)) !== null) {
+      ids.push(match[1]);
+    }
+
+    return ids.join(",");
   }
 
   onCancel() {
