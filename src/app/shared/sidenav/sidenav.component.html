@@ -1,20 +1,22 @@
-<mat-sidenav-container>
+<mat-sidenav-container class="mat-elevation-z9">
   @if (leftNavItems.length > 0) {
     <mat-sidenav [mode]="mobileQuery.matches ? 'over' : 'side'"
-                 [fixedInViewport]="mobileQuery.matches" [opened]="leftPanelOpened">
+                 [opened]="leftPanelOpened">
       <expansion-list [expansion-items]="leftNavItems"></expansion-list>
     </mat-sidenav>
   }
   <mat-sidenav-content>
     <ng-content></ng-content>
   </mat-sidenav-content>
-    <mat-sidenav [mode]="mobileQuery.matches ? 'over' : 'side'" position="end"
-                 [fixedInViewport]="mobileQuery.matches" [opened]="rightPanelOpened">
-      <expansion-list [expansion-items]="rightNavItems"></expansion-list>
-      <div class="fab-container">
-        <a mat-fab (click)="onAddNewCharacterClick()">
-          <mat-icon>person_add</mat-icon>
-        </a>
-      </div>
-    </mat-sidenav>
+  <mat-sidenav [mode]="mobileQuery.matches ? 'over' : 'side'" position="end"
+               [opened]="rightPanelOpened">
+
+    <div style="margin: 1rem">
+      <a mat-fab extended (click)="onAddNewCharacterClick()">
+        <mat-icon>person_add</mat-icon>
+        <span>Add Character</span>
+      </a>
+    </div>
+    <expansion-list [expansion-items]="rightNavItems"></expansion-list>
+  </mat-sidenav>
 </mat-sidenav-container>
